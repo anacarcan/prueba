@@ -14,14 +14,20 @@ import java.util.List;
 
 public class JugadorPartidaDAO {
 
+    // Registro de servicios estándar de Hibernate configurado desde hibernate.cfg.xml
     private static final StandardServiceRegistry sr =
             new StandardServiceRegistryBuilder().configure().build();
 
+    // Fábrica de sesiones de Hibernate para gestionar conexiones a la base de datos
     private static final SessionFactory sf =
             new MetadataSources(sr).buildMetadata().buildSessionFactory();
 
     /**
-     * Registers a player's participation in a game with correct answers and points
+     * Registra la participación de un jugador en una partida con respuestas correctas y puntos
+     * @param jugador El jugador que participó
+     * @param partida La partida en la que participó
+     * @param respuestasCorrectas Número de respuestas correctas
+     * @param puntos Puntos obtenidos por el jugador
      */
     public static void registrarJugadorPartida(Jugador jugador, Partida partida, int respuestasCorrectas, int puntos) {
         Session session = sf.openSession();
@@ -33,7 +39,7 @@ public class JugadorPartidaDAO {
             jugadorPartida.setPartida(partida);
             jugadorPartida.setRespuestasCorrectas(respuestasCorrectas);
             jugadorPartida.setRespuestasIncorrectas(partida.getTotalPreguntas() - respuestasCorrectas);
-            jugadorPartida.setPuntosObtenidos(puntos); // Use provided points, don't recalculate
+            jugadorPartida.setPuntosObtenidos(puntos); // Usar puntos proporcionados, no recalcular
 
             session.persist(jugadorPartida);
             tx.commit();
@@ -42,6 +48,7 @@ public class JugadorPartidaDAO {
                     jugador.getNombre() + " - " + respuestasCorrectas + " aciertos - " + puntos + " puntos");
 
         } catch (Exception e) {
+            // Revertir transacción en caso de error
             if (tx != null) tx.rollback();
             System.out.println("❌ Error al registrar JugadorPartida: " + e.getMessage());
             e.printStackTrace();
@@ -51,18 +58,27 @@ public class JugadorPartidaDAO {
     }
 
     /**
-     * Registers a player's participation with automatic point calculation (deprecated - use the version above)
+     * Registra la participación de un jugador con cálculo automático de puntos (obsoleto - usar versión anterior)
+     * @param jugador El jugador que participó
+     * @param partida La partida en la que participó
+     * @param respuestasCorrectas Número de respuestas correctas
      */
     public static void registrarJugadorPartida(Jugador jugador, Partida partida, int respuestasCorrectas) {
         int puntosCalculados = calcularPuntos(respuestasCorrectas, partida.getTotalPreguntas());
         registrarJugadorPartida(jugador, partida, respuestasCorrectas, puntosCalculados);
     }
 
+    /**
+     * Marca a un jugador como ganador de una partida específica
+     * @param jugador El jugador ganador
+     * @param partida La partida ganada
+     */
     public static void marcarComoGanador(Jugador jugador, Partida partida) {
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
 
         try {
+            // Buscar el registro JugadorPartida específico
             JugadorPartida jugadorPartida = session.createQuery(
                             "FROM JugadorPartida jp WHERE jp.jugador = :jugador AND jp.partida = :partida",
                             JugadorPartida.class)
@@ -89,11 +105,18 @@ public class JugadorPartidaDAO {
         }
     }
 
+    /**
+     * Establece el tiempo total empleado por un jugador en una partida
+     * @param jugador El jugador
+     * @param partida La partida
+     * @param tiempoSegundos Tiempo en segundos
+     */
     public static void establecerTiempoJugador(Jugador jugador, Partida partida, long tiempoSegundos) {
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
 
         try {
+            // Buscar el registro JugadorPartida específico
             JugadorPartida jugadorPartida = session.createQuery(
                             "FROM JugadorPartida jp WHERE jp.jugador = :jugador AND jp.partida = :partida",
                             JugadorPartida.class)
@@ -120,9 +143,15 @@ public class JugadorPartidaDAO {
         }
     }
 
+    /**
+     * Obtiene el historial de partidas de un jugador específico
+     * @param nombreJugador Nombre del jugador
+     * @return Lista de registros JugadorPartida ordenados por fecha descendente
+     */
     public static List<JugadorPartida> obtenerHistorialJugador(String nombreJugador) {
         Session session = sf.openSession();
         try {
+            // Consulta con JOIN FETCH para cargar datos de partida de forma eficiente
             List<JugadorPartida> historial = session.createQuery(
                             "FROM JugadorPartida jp JOIN FETCH jp.partida WHERE jp.jugador.nombre = :nombre ORDER BY jp.partida.fechaHora DESC",
                             JugadorPartida.class)
@@ -140,9 +169,15 @@ public class JugadorPartidaDAO {
         }
     }
 
+    /**
+     * Obtiene los mejores jugadores basado en puntuaciones más altas
+     * @param limite Número máximo de resultados a devolver
+     * @return Lista de los mejores registros JugadorPartida ordenados por puntos
+     */
     public static List<JugadorPartida> obtenerMejoresJugadores(int limite) {
         Session session = sf.openSession();
         try {
+            // Consulta con JOIN FETCH para cargar datos de jugador de forma eficiente
             List<JugadorPartida> mejores = session.createQuery(
                             "FROM JugadorPartida jp JOIN FETCH jp.jugador ORDER BY jp.puntosObtenidos DESC",
                             JugadorPartida.class)
@@ -160,24 +195,33 @@ public class JugadorPartidaDAO {
         }
     }
 
+    /**
+     * Obtiene estadísticas detalladas de rendimiento de un jugador
+     * @param nombreJugador Nombre del jugador
+     * @return String formateado con estadísticas completas de rendimiento
+     */
     public static String obtenerEstadisticasRendimiento(String nombreJugador) {
         Session session = sf.openSession();
         try {
+            // Calcular promedio de respuestas correctas
             Double promedioAciertos = (Double) session.createQuery(
                             "SELECT AVG(jp.respuestasCorrectas) FROM JugadorPartida jp WHERE jp.jugador.nombre = :nombre")
                     .setParameter("nombre", nombreJugador)
                     .uniqueResult();
 
+            // Obtener mejor puntuación alcanzada
             Integer mejorPuntuacion = (Integer) session.createQuery(
                             "SELECT MAX(jp.puntosObtenidos) FROM JugadorPartida jp WHERE jp.jugador.nombre = :nombre")
                     .setParameter("nombre", nombreJugador)
                     .uniqueResult();
 
+            // Contar número de victorias
             Long victorias = (Long) session.createQuery(
                             "SELECT COUNT(jp) FROM JugadorPartida jp WHERE jp.jugador.nombre = :nombre AND jp.ganador = true")
                     .setParameter("nombre", nombreJugador)
                     .uniqueResult();
 
+            // Contar total de partidas jugadas
             Long totalPartidas = (Long) session.createQuery(
                             "SELECT COUNT(jp) FROM JugadorPartida jp WHERE jp.jugador.nombre = :nombre")
                     .setParameter("nombre", nombreJugador)
@@ -208,17 +252,24 @@ public class JugadorPartidaDAO {
     }
 
     /**
-     * Calculate points based on correct answers (used only as fallback)
+     * Calcula puntos basado en respuestas correctas (usado solo como respaldo)
+     * @param respuestasCorrectas Número de respuestas correctas
+     * @param totalPreguntas Total de preguntas en la partida
+     * @return Puntos calculados según porcentaje de acierto
      */
     private static int calcularPuntos(int respuestasCorrectas, int totalPreguntas) {
         double porcentaje = (double) respuestasCorrectas / totalPreguntas;
 
-        if (porcentaje >= 0.9) return 5;
-        else if (porcentaje >= 0.7) return 3;
-        else if (porcentaje >= 0.5) return 1;
-        else return 0;
+        // Sistema de puntuación basado en porcentaje de aciertos
+        if (porcentaje >= 0.9) return 5;        // 90% o más: 5 puntos
+        else if (porcentaje >= 0.7) return 3;   // 70-89%: 3 puntos
+        else if (porcentaje >= 0.5) return 1;   // 50-69%: 1 punto
+        else return 0;                          // Menos del 50%: 0 puntos
     }
 
+    /**
+     * Cierra la SessionFactory y libera recursos de Hibernate
+     */
     public static void cerrarFactory() {
         if (sf != null) {
             sf.close();

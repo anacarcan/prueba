@@ -16,64 +16,79 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Optional;
 
+/**
+ * Controlador principal de la interfaz de usuario del cliente de Trivia
+ * Maneja la comunicación TCP con el servidor y controla todas las pantallas de la aplicación
+ * Gestiona el flujo completo desde la conexión hasta la finalización de partidas
+ */
 public class TriviaController {
 
-    private static final String SERVIDOR = "localhost";
-    private static final int PUERTO = 65001;
+    // Configuración de conexión al servidor
+    private static final String SERVIDOR = "localhost"; // Dirección del servidor de trivia
+    private static final int PUERTO = 65001; // Puerto TCP del servidor
 
-    private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
+    // Componentes de comunicación TCP
+    private Socket socket; // Socket para la conexión con el servidor
+    private BufferedReader in; // Flujo de entrada para recibir mensajes del servidor
+    private PrintWriter out; // Flujo de salida para enviar mensajes al servidor
 
-    private String categoriaSeleccionada = "";
-    private String modoSeleccionado = "";
-    private int preguntaActual = 0;
-    private int totalPreguntas = 10;
-    private int puntosJ1 = 0;
-    private int puntosJ2 = 0;
-    private Timeline contadorTiempo;
-    private boolean esPartidaSolo = true;
-    private String oponente = "";
+    // Variables de estado del juego
+    private String categoriaSeleccionada = ""; // Categoría de preguntas elegida
+    private String modoSeleccionado = ""; // Modo de juego (solo/esperar)
+    private int preguntaActual = 0; // Número de pregunta actual (1-based)
+    private int totalPreguntas = 10; // Total de preguntas en la partida
+    private int puntosJ1 = 0; // Aciertos del jugador 1 (usuario)
+    private int puntosJ2 = 0; // Aciertos del jugador 2 (oponente)
+    private Timeline contadorTiempo; // Temporizador para tiempo límite de respuesta
+    private boolean esPartidaSolo = true; // Flag para determinar si es partida individual
+    private String oponente = ""; // Nombre del oponente en partidas multijugador
 
+    // Contenedor principal que alberga todas las pantallas
     @FXML private VBox contenedorPrincipal;
 
-    // Pantalla 1: Nombre
+    // Pantalla 1: Solicitud de nombre del jugador
     @FXML private VBox pantallaNombre;
-    @FXML private TextField nombreField;
-    @FXML private Label estadoLabel;
-    @FXML private Button botonEnviarNombre;
+    @FXML private TextField nombreField; // Campo de texto para introducir el nombre
+    @FXML private Label estadoLabel; // Etiqueta para mostrar el estado de la conexión
+    @FXML private Button botonEnviarNombre; // Botón para confirmar el nombre
 
-    // Pantalla 2: Categoría y Modo
+    // Pantalla 2: Selección de categoría y modo de juego
     @FXML private VBox pantallaCategorias;
-    @FXML private Label categoriaLabel;
-    @FXML private ComboBox<String> comboCategorias;
-    @FXML private ComboBox<String> comboModo;
-    @FXML private Button botonIniciarJuego;
-    @FXML private Button botonEstadisticas;
-    @FXML private Button botonPuntuacion;
-    @FXML private Label puntuacionTotal;
+    @FXML private Label categoriaLabel; // Etiqueta informativa sobre selección
+    @FXML private ComboBox<String> comboCategorias; // Selector de categorías disponibles
+    @FXML private ComboBox<String> comboModo; // Selector de modo (solo/esperar)
+    @FXML private Button botonIniciarJuego; // Botón para iniciar la partida
+    @FXML private Button botonEstadisticas; // Botón para consultar estadísticas
+    @FXML private Button botonPuntuacion; // Botón para consultar puntuación total
+    @FXML private Label puntuacionTotal; // Etiqueta para mostrar puntuación acumulada
 
-    // Pantalla 3: Juego
+    // Pantalla 3: Interfaz de juego durante la partida
     @FXML private VBox pantallaJuego;
-    @FXML private Label preguntaLabel;
-    @FXML private Label contadorLabel;
-    @FXML private Label numeroPreguntaLabel;
-    @FXML private Label puntosLabel;
-    @FXML private Label oponenteLabel;
-    @FXML private RadioButton opcionA, opcionB, opcionC, opcionD;
-    @FXML private ToggleGroup opcionesGroup;
-    @FXML private Button botonResponder;
-    @FXML private Label feedbackLabel;
-    @FXML private Button botonCancelarJuego;
+    @FXML private Label preguntaLabel; // Etiqueta para mostrar el texto de la pregunta
+    @FXML private Label contadorLabel; // Contador de tiempo restante
+    @FXML private Label numeroPreguntaLabel; // Indicador de progreso (ej: "Pregunta 3 de 10")
+    @FXML private Label puntosLabel; // Marcador de puntos/aciertos
+    @FXML private Label oponenteLabel; // Nombre del oponente (solo multijugador)
+    @FXML private RadioButton opcionA, opcionB, opcionC, opcionD; // Opciones de respuesta múltiple
+    @FXML private ToggleGroup opcionesGroup; // Grupo que permite solo una selección
+    @FXML private Button botonResponder; // Botón para enviar la respuesta seleccionada
+    @FXML private Label feedbackLabel; // Feedback inmediato (correcto/incorrecto)
+    @FXML private Button botonCancelarJuego; // Botón para abandonar la partida
 
-    // Pantalla 4: Resultados/Saliendo
+    // Pantalla 4: Resultados finales y transición
     @FXML private VBox pantallaResultados;
-    @FXML private Label resultadoLabel;
-    @FXML private Label mensajeResultado;
-    @FXML private ProgressIndicator ruedaCarga;
+    @FXML private Label resultadoLabel; // Resultado final (ganó/perdió/empate)
+    @FXML private Label mensajeResultado; // Detalles del resultado y puntos ganados
+    @FXML private ProgressIndicator ruedaCarga; // Indicador de carga durante transiciones
 
+    /**
+     * Método de inicialización llamado automáticamente por JavaFX
+     * Configura la interfaz inicial y establece conexión con el servidor
+     */
     @FXML
     public void initialize() {
+
+
         conectarServidor();
         configurarComboBoxes();
         configurarToggleGroup();
@@ -82,11 +97,18 @@ public class TriviaController {
 
     // ===================== CONFIGURACIÓN INICIAL =====================
 
+    /**
+     * Configura los valores iniciales de los ComboBox
+     */
     private void configurarComboBoxes() {
         comboModo.getItems().addAll("solo", "esperar");
-        comboModo.setValue("solo");
+        comboModo.setValue("solo"); // Modo individual por defecto
     }
 
+    /**
+     * Configura el grupo de opciones de respuesta múltiple
+     * Asegura que solo se pueda seleccionar una opción a la vez
+     */
     private void configurarToggleGroup() {
         opcionesGroup = new ToggleGroup();
         opcionA.setToggleGroup(opcionesGroup);
@@ -97,6 +119,10 @@ public class TriviaController {
 
     // ===================== MANEJO DE BOTONES =====================
 
+    /**
+     * Maneja el envío del nombre del jugador al servidor
+     * Valida que el nombre no esté vacío antes de enviarlo
+     */
     @FXML
     public void onEnviarNombre() {
         String nombre = nombreField.getText().trim();
@@ -108,6 +134,10 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Maneja el inicio de una nueva partida
+     * Valida la selección de categoría y modo antes de proceder
+     */
     @FXML
     public void onIniciarJuego() {
         categoriaSeleccionada = comboCategorias.getValue();
@@ -122,10 +152,12 @@ public class TriviaController {
         System.out.println("📤 Enviando selección: " + mensaje);
         enviar(mensaje);
 
+        // Deshabilitar controles durante la búsqueda de partida
         botonIniciarJuego.setDisable(true);
         comboCategorias.setDisable(true);
         comboModo.setDisable(true);
 
+        // Mostrar mensaje apropiado según el modo seleccionado
         if ("esperar".equals(modoSeleccionado)) {
             categoriaLabel.setText("Buscando otro jugador para " + categoriaSeleccionada + "...");
         } else {
@@ -133,17 +165,26 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Solicita las estadísticas del jugador al servidor
+     */
     @FXML
     public void onMostrarEstadisticas() {
         enviar("estadisticas");
     }
 
+    /**
+     * Solicita la puntuación total del jugador al servidor
+     */
     @FXML
     public void onMostrarPuntuacion() {
         enviar("puntuacion");
     }
 
-    // FIXED: Método de responder corregido
+    /**
+     * CORREGIDO: Método de responder corregido
+     * Envía la respuesta seleccionada al servidor y deshabilita la interfaz
+     */
     @FXML
     public void onResponder() {
         RadioButton seleccionada = (RadioButton) opcionesGroup.getSelectedToggle();
@@ -152,6 +193,7 @@ public class TriviaController {
             return;
         }
 
+        // Convertir la selección a letra (A, B, C, D)
         String respuesta = "";
         if (seleccionada == opcionA) respuesta = "A";
         else if (seleccionada == opcionB) respuesta = "B";
@@ -161,21 +203,27 @@ public class TriviaController {
         System.out.println("📤 Enviando respuesta: " + respuesta);
         enviar(respuesta);
 
-        // FIXED: Deshabilitar interfaz después de responder
+        // CORREGIDO: Deshabilitar interfaz después de responder
         deshabilitarRespuestas();
         botonResponder.setDisable(true);
 
-        // Detener el contador
+        // Detener el contador de tiempo
         if (contadorTiempo != null) {
             contadorTiempo.stop();
         }
     }
 
+    /**
+     * Cancela la partida actual enviando señal al servidor
+     */
     @FXML
     public void onCancelarJuego() {
         enviar("cancelar");
     }
 
+    /**
+     * Cierra la aplicación
+     */
     @FXML
     public void onSalir() {
         System.exit(0);
@@ -183,6 +231,10 @@ public class TriviaController {
 
     // ===================== COMUNICACIÓN CON SERVIDOR =====================
 
+    /**
+     * Establece conexión TCP con el servidor en un hilo separado
+     * Maneja la recepción continua de mensajes del servidor
+     */
     private void conectarServidor() {
         new Thread(() -> {
             try {
@@ -193,10 +245,12 @@ public class TriviaController {
 
                 System.out.println("✅ Conectado al servidor exitosamente");
 
+                // Bucle de recepción de mensajes
                 String mensaje;
                 while ((mensaje = in.readLine()) != null) {
                     String finalMensaje = mensaje;
                     System.out.println("📥 Recibido del servidor: " + finalMensaje);
+                    // Procesar mensajes en el hilo de JavaFX UI
                     Platform.runLater(() -> procesarMensaje(finalMensaje));
                 }
 
@@ -212,6 +266,10 @@ public class TriviaController {
         }).start();
     }
 
+    /**
+     * Envía un mensaje al servidor si la conexión está activa
+     * @param mensaje Mensaje a enviar al servidor
+     */
     private void enviar(String mensaje) {
         if (out != null) {
             System.out.println("📤 Enviando: " + mensaje);
@@ -219,6 +277,9 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Cierra la conexión TCP de forma segura
+     */
     private void cerrarConexion() {
         try {
             if (socket != null && !socket.isClosed()) socket.close();
@@ -227,6 +288,11 @@ public class TriviaController {
 
     // ===================== PROCESAMIENTO DE MENSAJES =====================
 
+    /**
+     * Procesa los mensajes recibidos del servidor y actualiza la interfaz
+     * Centraliza toda la lógica de respuesta a diferentes tipos de mensaje
+     * @param mensaje Mensaje recibido del servidor
+     */
     private void procesarMensaje(String mensaje) {
         System.out.println("🔄 Procesando: " + mensaje);
 
@@ -235,6 +301,7 @@ public class TriviaController {
             mostrarSolo(pantallaNombre);
 
         } else if (mensaje.startsWith("CATEGORIAS_DISPONIBLES")) {
+            // Parsear categorías disponibles y poblar el ComboBox
             String[] partes = mensaje.split(";");
             comboCategorias.getItems().clear();
             for (int i = 1; i < partes.length; i++) {
@@ -247,10 +314,12 @@ public class TriviaController {
             mostrarSolo(pantallaCategorias);
 
         } else if (mensaje.startsWith("ESTADISTICAS")) {
+            // Mostrar estadísticas del jugador en un diálogo
             String stats = mensaje.substring(12).replace("|", "\n");
             mostrarAlerta("Estadísticas", stats);
 
         } else if (mensaje.startsWith("PUNTUACION_TOTAL")) {
+            // Actualizar y mostrar puntuación total
             String puntos = mensaje.split(";")[1];
             puntuacionTotal.setText("Puntuación Total: " + puntos);
             activarNodos(puntuacionTotal);
@@ -265,7 +334,7 @@ public class TriviaController {
             procesarPregunta(mensaje);
 
         } else if (mensaje.startsWith("SOLICITAR_RESPUESTA")) {
-            // FIXED: Habilitar respuestas cuando el servidor lo solicite
+            // CORREGIDO: Habilitar respuestas cuando el servidor lo solicite
             habilitarRespuestas();
 
         } else if (mensaje.startsWith("RESPUESTA_CORRECTA")) {
@@ -306,6 +375,10 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Procesa el mensaje de partida encontrada
+     * Extrae información sobre tipo de partida y oponente
+     */
     private void procesarPartidaEncontrada(String mensaje) {
         String[] partes = mensaje.split(";");
         for (String parte : partes) {
@@ -317,6 +390,7 @@ public class TriviaController {
             }
         }
 
+        // Mostrar mensaje apropiado según el tipo de partida
         if (esPartidaSolo) {
             categoriaLabel.setText("¡Partida individual iniciando...");
         } else {
@@ -324,22 +398,33 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Procesa el inicio oficial de la partida
+     * Configura la interfaz de juego y resetea contadores
+     */
     private void procesarInicioPartida(String mensaje) {
+        // Mostrar información del oponente si es partida multijugador
         if (!esPartidaSolo && !oponente.isEmpty()) {
             oponenteLabel.setText("Oponente: " + oponente);
             activarNodos(oponenteLabel);
         }
 
+        // Resetear contadores para nueva partida
         preguntaActual = 0;
         puntosJ1 = 0;
         puntosJ2 = 0;
 
+        // Cambiar a pantalla de juego
         mostrarSolo(pantallaJuego);
         activarNodos(botonCancelarJuego);
     }
 
+    /**
+     * Procesa una nueva pregunta recibida del servidor
+     * Parsea todos los componentes de la pregunta y configura la interfaz
+     */
     private void procesarPregunta(String mensaje) {
-        // PREGUNTA;NUMERO:1;TOTAL:10;TEXTO:¿Pregunta?;A:opción1;B:opción2;C:opción3;D:opción4
+        // Formato: PREGUNTA;NUMERO:1;TOTAL:10;TEXTO:¿Pregunta?;A:opción1;B:opción2;C:opción3;D:opción4
         String[] partes = mensaje.split(";");
 
         for (String parte : partes) {
@@ -360,24 +445,28 @@ public class TriviaController {
             }
         }
 
-        // FIXED: Limpiar estilos anteriores y estado
+        // CORREGIDO: Limpiar estilos anteriores y estado
         limpiarEstilosRespuestas();
 
         numeroPreguntaLabel.setText("Pregunta " + preguntaActual + " de " + totalPreguntas);
-        opcionesGroup.selectToggle(null);
+        opcionesGroup.selectToggle(null); // Limpiar selección anterior
         ocultarNodos(feedbackLabel);
 
-        // FIXED: Activar elementos de la pregunta pero NO las respuestas aún
+        // CORREGIDO: Activar elementos de la pregunta pero NO las respuestas aún
         activarNodos(preguntaLabel, numeroPreguntaLabel, opcionA, opcionB, opcionC, opcionD);
 
-        // FIXED: Deshabilitar botón responder hasta que se seleccione una opción
+        // CORREGIDO: Deshabilitar botón responder hasta que se seleccione una opción
         botonResponder.setDisable(true);
 
         iniciarContador();
     }
 
+    /**
+     * Procesa el resultado de una pregunta
+     * Actualiza marcadores y resalta la respuesta correcta
+     */
     private void procesarResultadoPregunta(String mensaje) {
-        // RESULTADO;CORRECTA:B;PUNTOS_J1:3;PUNTOS_J2:2
+        // Formato: RESULTADO;CORRECTA:B;PUNTOS_J1:3;PUNTOS_J2:2
         String[] partes = mensaje.split(";");
 
         for (String parte : partes) {
@@ -391,7 +480,7 @@ public class TriviaController {
             }
         }
 
-        // FIXED: Mostrar puntos solo para jugador 1 en modo solo
+        // CORREGIDO: Mostrar puntos solo para jugador 1 en modo solo
         if (esPartidaSolo) {
             puntosLabel.setText("Aciertos: " + puntosJ1 + "/" + preguntaActual);
         } else {
@@ -400,10 +489,15 @@ public class TriviaController {
         activarNodos(puntosLabel);
     }
 
+    /**
+     * Procesa el final de la partida
+     * Determina resultado, extrae puntos ganados y muestra pantalla de resultados
+     */
     private void procesarFinPartida(String mensaje) {
         String textoResultado = "";
         String puntosGanados = "0";
 
+        // Determinar resultado de la partida
         if (mensaje.contains("GANADOR")) {
             textoResultado = "¡Has ganado la partida!";
         } else if (mensaje.contains("PERDEDOR")) {
@@ -414,7 +508,7 @@ public class TriviaController {
             textoResultado = "Partida completada";
         }
 
-        // Extract points gained
+        // Extraer puntos ganados del mensaje
         String[] partes = mensaje.split(";");
         for (String parte : partes) {
             if (parte.startsWith("PUNTOS_GANADOS:")) {
@@ -425,6 +519,7 @@ public class TriviaController {
 
         resultadoLabel.setText(textoResultado);
 
+        // Mostrar mensaje diferente según tipo de partida
         if (esPartidaSolo) {
             mensajeResultado.setText("Respuestas correctas: " + puntosJ1 + "/" + totalPreguntas +
                     "\nPuntos ganados: " + puntosGanados);
@@ -437,11 +532,16 @@ public class TriviaController {
         mostrarCarga(true);
         mostrarSolo(pantallaResultados);
 
+        // Pausa automática antes de volver al menú principal
         PauseTransition pausa = new PauseTransition(Duration.seconds(5));
         pausa.setOnFinished(e -> volverAlInicio());
         pausa.play();
     }
 
+    /**
+     * Maneja finalizaciones abruptas de partida (cancelaciones, desconexiones)
+     * @param motivo Razón de la finalización abrupta
+     */
     private void mostrarFinAbrupto(String motivo) {
         resultadoLabel.setText(motivo);
         mensajeResultado.setText("Regresando al menú principal...");
@@ -450,6 +550,7 @@ public class TriviaController {
         mostrarCarga(true);
         mostrarSolo(pantallaResultados);
 
+        // Pausa más corta para finalizaciones abruptas
         PauseTransition pausa = new PauseTransition(Duration.seconds(3));
         pausa.setOnFinished(e -> volverAlInicio());
         pausa.play();
@@ -457,6 +558,10 @@ public class TriviaController {
 
     // ===================== UTILIDADES DE INTERFAZ =====================
 
+    /**
+     * Muestra solo un nodo específico ocultando todos los demás
+     * @param nodoVisible El nodo que debe permanecer visible
+     */
     private void mostrarSolo(Node nodoVisible) {
         for (Node node : contenedorPrincipal.getChildren()) {
             node.setVisible(false);
@@ -466,6 +571,10 @@ public class TriviaController {
         nodoVisible.setManaged(true);
     }
 
+    /**
+     * Oculta los nodos especificados
+     * @param nodos Nodos a ocultar
+     */
     private void ocultarNodos(Node... nodos) {
         for (Node nodo : nodos) {
             nodo.setVisible(false);
@@ -473,6 +582,10 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Activa y hace visibles los nodos especificados
+     * @param nodos Nodos a activar
+     */
     private void activarNodos(Node... nodos) {
         for (Node nodo : nodos) {
             nodo.setVisible(true);
@@ -480,27 +593,33 @@ public class TriviaController {
         }
     }
 
-    // FIXED: Habilitar respuestas cuando el servidor lo solicite
+    /**
+     * CORREGIDO: Habilitar respuestas cuando el servidor lo solicite
+     * Configura la interfaz para permitir selección y respuesta
+     */
     private void habilitarRespuestas() {
         // Limpiar estilos antes de habilitar
         limpiarEstilosRespuestas();
 
-        // Habilitar radio buttons
+        // Habilitar radio buttons para selección
         opcionA.setDisable(false);
         opcionB.setDisable(false);
         opcionC.setDisable(false);
         opcionD.setDisable(false);
 
-        // FIXED: Habilitar botón responder
+        // CORREGIDO: Habilitar botón responder
         botonResponder.setDisable(false);
         activarNodos(botonResponder);
 
-        // FIXED: Agregar listener para habilitar botón cuando se seleccione una opción
+        // CORREGIDO: Agregar listener para habilitar botón cuando se seleccione una opción
         opcionesGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             botonResponder.setDisable(newToggle == null);
         });
     }
 
+    /**
+     * Deshabilita todas las opciones de respuesta
+     */
     private void deshabilitarRespuestas() {
         opcionA.setDisable(true);
         opcionB.setDisable(true);
@@ -509,12 +628,19 @@ public class TriviaController {
         botonResponder.setDisable(true);
     }
 
+    /**
+     * Rehabilita los controles de selección de categoría y modo
+     */
     private void habilitarSeleccion() {
         botonIniciarJuego.setDisable(false);
         comboCategorias.setDisable(false);
         comboModo.setDisable(false);
     }
 
+    /**
+     * Resalta visualmente la respuesta correcta
+     * @param correcta Letra de la respuesta correcta (A, B, C, D)
+     */
     private void mostrarRespuestaCorrecta(String correcta) {
         // PRIMERO: Limpiar todos los estilos
         limpiarEstilosRespuestas();
@@ -531,6 +657,9 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Limpia todos los estilos aplicados a las opciones de respuesta
+     */
     private void limpiarEstilosRespuestas() {
         // Limpiar TODOS los estilos de las opciones
         opcionA.setStyle("");
@@ -544,6 +673,10 @@ public class TriviaController {
         }
     }
 
+    /**
+     * Inicia el contador de tiempo para responder la pregunta
+     * Countdown de 20 segundos con alerta visual en los últimos 5 segundos
+     */
     private void iniciarContador() {
         if (contadorTiempo != null) {
             contadorTiempo.stop();
@@ -557,24 +690,38 @@ public class TriviaController {
                     int segundosRestantes = Integer.parseInt(contadorLabel.getText()) - 1;
                     contadorLabel.setText(String.valueOf(segundosRestantes));
 
+                    // Cambiar color a rojo en los últimos 5 segundos
                     if (segundosRestantes <= 5) {
                         contadorLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
                     }
                 })
         );
-        contadorTiempo.setCycleCount(20);
+        contadorTiempo.setCycleCount(20); // 20 segundos total
         contadorTiempo.play();
     }
 
+    /**
+     * Controla la visibilidad del indicador de carga
+     * @param mostrar true para mostrar, false para ocultar
+     */
     private void mostrarCarga(boolean mostrar) {
         ruedaCarga.setVisible(mostrar);
         ruedaCarga.setManaged(mostrar);
     }
 
+    /**
+     * Muestra un diálogo de alerta con mensaje informativo
+     * @param mensaje Mensaje a mostrar en el diálogo
+     */
     private void mostrarAlerta(String mensaje) {
         mostrarAlerta("Información", mensaje);
     }
 
+    /**
+     * Muestra un diálogo de alerta con título y mensaje personalizados
+     * @param titulo Título del diálogo
+     * @param mensaje Contenido del mensaje
+     */
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -583,6 +730,10 @@ public class TriviaController {
         alert.showAndWait();
     }
 
+    /**
+     * Regresa al estado inicial de la aplicación
+     * Reinicia la conexión y resetea toda la interfaz
+     */
     private void volverAlInicio() {
         mostrarCarga(false);
         resetearUI();
@@ -590,31 +741,45 @@ public class TriviaController {
         conectarServidor();
     }
 
+    /**
+     * Resetea completamente la interfaz de usuario a su estado inicial
+     * Limpia todos los campos, contadores y estilos aplicados
+     */
     private void resetearUI() {
+        // Resetear pantalla de nombre
         nombreField.setDisable(false);
         nombreField.clear();
         botonEnviarNombre.setDisable(false);
 
+        // Resetear pantalla de selección
         habilitarSeleccion();
         comboCategorias.getItems().clear();
         comboModo.setValue("solo");
 
+        // Resetear variables de estado
         preguntaActual = 0;
         puntosJ1 = 0;
         puntosJ2 = 0;
         esPartidaSolo = true;
         oponente = "";
 
+        // Ocultar elementos de juego
         ocultarNodos(puntuacionTotal, oponenteLabel, feedbackLabel, puntosLabel, contadorLabel, botonCancelarJuego, botonResponder);
 
         // IMPORTANTE: Limpiar todos los estilos
         limpiarEstilosRespuestas();
 
+        // Detener temporizadores activos
         if (contadorTiempo != null) {
             contadorTiempo.stop();
         }
     }
 
+    /**
+     * Configura el comportamiento al cerrar la ventana principal
+     * Muestra confirmación y maneja cancelación de partida en curso
+     * @param stage Ventana principal de la aplicación
+     */
     public void setStage(Stage stage) {
         stage.setOnCloseRequest(event -> {
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
@@ -623,10 +788,10 @@ public class TriviaController {
             alerta.setContentText("Si estás en partida se cancelará automáticamente.");
             Optional<ButtonType> resultado = alerta.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                enviar("cancelar");
+                enviar("cancelar"); // Notificar cancelación al servidor
                 cerrarConexion();
             } else {
-                event.consume();
+                event.consume(); // Cancelar el cierre de ventana
             }
         });
     }

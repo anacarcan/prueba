@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff680801-2caa-4cc1-aa57-5f2f8eac2e1b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cliente/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cliente/TriviaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cliente/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cliente/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cliente/trivia-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorPartidaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorPartidaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PartidaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PartidaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PreguntaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PreguntaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/PartidaTrivia.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/PartidaTrivia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/ServidorTrivia.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/ServidorTrivia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/entidades/Pregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/entidades/Pregunta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +44,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/FP/Proyecto/Cliente"
+    "last_opened_file_path": "D:/FP/Proyecto/Servidor"
   }
 }]]></component>
   <component name="RecentsManager">

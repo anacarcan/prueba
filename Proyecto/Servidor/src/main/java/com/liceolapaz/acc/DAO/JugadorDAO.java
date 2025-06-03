@@ -10,12 +10,18 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class JugadorDAO {
 
+    // Registro de servicios estándar de Hibernate configurado desde hibernate.cfg.xml
     private static final StandardServiceRegistry sr =
             new StandardServiceRegistryBuilder().configure().build();
 
+    // Fábrica de sesiones de Hibernate para gestionar conexiones a la base de datos
     private static final SessionFactory sf =
             new MetadataSources(sr).buildMetadata().buildSessionFactory();
 
+    /**
+     * Verifica si existe un jugador por nombre y lo crea si no existe
+     * @param nombre Nombre del jugador a verificar/crear
+     */
     public static void verificarYCrearJugador(String nombre) {
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
@@ -39,6 +45,7 @@ public class JugadorDAO {
 
             tx.commit();
         } catch (Exception e) {
+            // Revertir transacción en caso de error
             if (tx != null) tx.rollback();
             System.out.println("❌ Error al verificar o crear jugador: " + e.getMessage());
         } finally {
@@ -46,6 +53,11 @@ public class JugadorDAO {
         }
     }
 
+    /**
+     * Obtiene un jugador por su nombre
+     * @param nombre Nombre del jugador a buscar
+     * @return Objeto Jugador o null si no se encuentra
+     */
     public static Jugador obtenerJugador(String nombre) {
         Session session = sf.openSession();
         try {
@@ -67,7 +79,11 @@ public class JugadorDAO {
         }
     }
 
-    // FIXED: Método de actualización de puntuación corregido con mejor manejo de transacciones
+    /**
+     * Método de actualización de puntuación con mejor manejo de transacciones
+     * @param nombre Nombre del jugador
+     * @param puntos Puntos a sumar a la puntuación actual
+     */
     public static void actualizarPuntuacionJugador(String nombre, int puntos) {
         Session session = sf.openSession();
         Transaction tx = null;
@@ -75,6 +91,7 @@ public class JugadorDAO {
         try {
             tx = session.beginTransaction();
 
+            // Buscar el jugador por nombre
             Jugador jugador = session.createQuery(
                             "FROM Jugador WHERE nombre = :nombre", Jugador.class)
                     .setParameter("nombre", nombre)
@@ -87,7 +104,7 @@ public class JugadorDAO {
                 jugador.setPuntuacionTotal(nuevaPuntuacion);
                 session.merge(jugador);
 
-                // FIXED: Commit ANTES de logging para evitar problemas
+                // CORREGIDO: Commit ANTES del logging para evitar problemas
                 tx.commit();
                 tx = null; // Marcar como completado
 
@@ -102,6 +119,7 @@ public class JugadorDAO {
             }
 
         } catch (Exception e) {
+            // Manejo seguro del rollback
             if (tx != null) {
                 try {
                     tx.rollback();
@@ -116,6 +134,11 @@ public class JugadorDAO {
         }
     }
 
+    /**
+     * Obtiene la puntuación total de un jugador
+     * @param nombre Nombre del jugador
+     * @return Puntuación total del jugador o 0 si no se encuentra
+     */
     public static int obtenerPuntuacion(String nombre) {
         Session session = sf.openSession();
         try {
@@ -140,7 +163,10 @@ public class JugadorDAO {
         }
     }
 
-    // FIXED: Método corregido con mejor manejo de transacciones
+    /**
+     * Incrementa el contador de partidas jugadas con mejor manejo de transacciones
+     * @param nombre Nombre del jugador
+     */
     public static void incrementarPartidasJugadas(String nombre) {
         Session session = sf.openSession();
         Transaction tx = null;
@@ -170,6 +196,7 @@ public class JugadorDAO {
             }
 
         } catch (Exception e) {
+            // Manejo seguro del rollback
             if (tx != null) {
                 try {
                     tx.rollback();
@@ -183,7 +210,10 @@ public class JugadorDAO {
         }
     }
 
-    // FIXED: Método corregido con mejor manejo de transacciones
+    /**
+     * Incrementa el contador de partidas ganadas con mejor manejo de transacciones
+     * @param nombre Nombre del jugador
+     */
     public static void incrementarPartidasGanadas(String nombre) {
         Session session = sf.openSession();
         Transaction tx = null;
@@ -213,6 +243,7 @@ public class JugadorDAO {
             }
 
         } catch (Exception e) {
+            // Manejo seguro del rollback
             if (tx != null) {
                 try {
                     tx.rollback();
@@ -226,6 +257,11 @@ public class JugadorDAO {
         }
     }
 
+    /**
+     * Obtiene las estadísticas completas de un jugador
+     * @param nombre Nombre del jugador
+     * @return String formateado con las estadísticas del jugador
+     */
     public static String obtenerEstadisticas(String nombre) {
         Jugador jugador = obtenerJugador(nombre);
         if (jugador != null) {
@@ -245,6 +281,9 @@ public class JugadorDAO {
         return "❌ Jugador no encontrado: " + nombre;
     }
 
+    /**
+     * Cierra la SessionFactory y libera recursos de Hibernate
+     */
     public static void cerrarFactory() {
         if (sf != null) {
             sf.close();

@@ -5,24 +5,24 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!-- Database connection settings -->
+        <!-- Configuración de conexión a la base de datos -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/trivia?serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;createDatabaseIfNotExist=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
         <property name="hibernate.default_schema">trivia</property>
 
-        <!-- SQL dialect -->
+        <!-- Dialecto SQL para MySQL 8 -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
-        <!-- Echo all executed SQL to stdout -->
+        <!-- Mostrar y formatear todas las consultas SQL ejecutadas en la consola -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <!-- Drop and re-create the database schema on startup -->
+        <!-- Actualizar automáticamente el esquema de la base de datos al iniciar -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Connection pool settings -->
+        <!-- Configuración del pool de conexiones -->
         <property name="hibernate.connection.pool_size">10</property>
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
@@ -30,19 +30,19 @@
         <property name="hibernate.c3p0.max_statements">50</property>
         <property name="hibernate.c3p0.idle_test_period">3000</property>
 
-        <!-- Current session context -->
+        <!-- Contexto de sesión actual por hilo -->
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <!-- Disable second-level cache -->
+        <!-- Deshabilitar caché de segundo nivel -->
         <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <property name="hibernate.cache.use_query_cache">false</property>
 
-        <!-- Character encoding -->
+        <!-- Codificación de caracteres UTF-8 -->
         <property name="hibernate.connection.characterEncoding">utf8</property>
         <property name="hibernate.connection.useUnicode">true</property>
 
-        <!-- Entity mappings -->
+        <!-- Mapeo de entidades del modelo de datos -->
         <mapping class="com.liceolapaz.acc.entidades.Pregunta"/>
         <mapping class="com.liceolapaz.acc.entidades.JugadorPartida"/>
         <mapping class="com.liceolapaz.acc.entidades.Jugador"/>

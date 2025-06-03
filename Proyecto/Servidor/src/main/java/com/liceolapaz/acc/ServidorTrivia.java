@@ -16,26 +16,31 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Servidor TCP para el juego de Trivia
- * Maneja conexiones de múltiples clientes y organiza partidas
+ * Maneja conexiones de múltiples clientes y organiza partidas individuales y multijugador
+ * Utiliza un sistema de cola para emparejar jugadores de forma eficiente
  */
 public class ServidorTrivia {
 
     // Configuración del servidor
-    private static final int PUERTO = 65001;
-    private static final BlockingQueue<JugadorPendiente> colaClientes = new LinkedBlockingQueue<>();
-    private static volatile boolean partidaEnCurso = false;
+    private static final int PUERTO = 65001; // Puerto TCP para conexiones de clientes
+    private static final BlockingQueue<JugadorPendiente> colaClientes = new LinkedBlockingQueue<>(); // Cola thread-safe para jugadores en espera
+    private static volatile boolean partidaEnCurso = false; // Flag para controlar si hay una partida activa
 
+    /**
+     * Método principal del servidor
+     * Inicializa la base de datos, configura el servidor TCP y gestiona conexiones
+     */
     public static void main(String[] args) {
         System.out.println("🚀 Iniciando Servidor de Trivia...");
 
-        // Limpiar y recargar preguntas en cada inicio
+        // Verificar conectividad y contenido de la base de datos
         inicializarBaseDatos();
 
         try (ServerSocket servidor = new ServerSocket(PUERTO)) {
             System.out.println("✅ Servidor Trivia iniciado en puerto " + PUERTO);
             System.out.println("📚 Esperando conexiones de jugadores...");
 
-            // Hilo para procesar la cola de jugadores
+            // Hilo dedicado para procesar la cola de jugadores y organizar partidas
             Thread procesadorCola = new Thread(() -> {
                 System.out.println("🔄 Hilo procesador de cola iniciado");
                 while (true) {
@@ -51,10 +56,10 @@ public class ServidorTrivia {
                     }
                 }
             });
-            procesadorCola.setDaemon(true);
+            procesadorCola.setDaemon(true); // Hilo daemon que termina con la aplicación
             procesadorCola.start();
 
-            // Bucle principal - acepta conexiones
+            // Bucle principal - acepta conexiones entrantes indefinidamente
             while (true) {
                 Socket cliente = servidor.accept();
                 System.out.println("🔗 Nueva conexión desde: " + cliente.getInetAddress());
@@ -68,17 +73,18 @@ public class ServidorTrivia {
     }
 
     /**
-     * Inicializa la base de datos verificando la conexión
+     * Inicializa y verifica la conexión con la base de datos
+     * Comprueba que las categorías y preguntas estén disponibles
      */
     private static void inicializarBaseDatos() {
         try {
             System.out.println("🔄 Verificando conexión con la base de datos...");
 
-            // Solo verificar que la conexión funciona y hay categorías
+            // Verificar que la conexión funciona y obtener categorías disponibles
             List<String> categorias = PreguntaDAO.obtenerCategorias();
             System.out.println("📊 Categorías disponibles: " + categorias.size() + " encontradas");
 
-            // Verificar que hay preguntas para cada categoría
+            // Verificar que hay preguntas suficientes para cada categoría
             for (String categoria : categorias) {
                 long count = PreguntaDAO.contarPreguntasPorCategoria(categoria);
                 System.out.println("  📁 " + categoria + ": " + count + " preguntas");
@@ -93,18 +99,22 @@ public class ServidorTrivia {
     }
 
     /**
-     * Clase interna para representar un jugador en espera
+     * Clase interna para representar un jugador en espera de partida
+     * Contiene toda la información necesaria para gestionar la conexión y preferencias
      */
     private static class JugadorPendiente {
-        Socket socket;
-        String nombre;
-        String categoria;
-        String modo; // "solo" o "esperar"
-        BufferedReader in;
-        PrintWriter out;
-        long tiempoEspera;
-        volatile boolean cancelado = false;
+        Socket socket; // Conexión TCP del jugador
+        String nombre; // Nombre del jugador
+        String categoria; // Categoría de preguntas preferida
+        String modo; // Modo de juego: "solo" o "esperar" (multijugador)
+        BufferedReader in; // Flujo de entrada para recibir mensajes
+        PrintWriter out; // Flujo de salida para enviar mensajes
+        long tiempoEspera; // Timestamp de cuando entró en cola
+        volatile boolean cancelado = false; // Flag para indicar si el jugador canceló
 
+        /**
+         * Constructor para crear un jugador pendiente
+         */
         JugadorPendiente(Socket socket, String nombre, String categoria, String modo,
                          BufferedReader in, PrintWriter out) {
             this.socket = socket;
@@ -116,6 +126,10 @@ public class ServidorTrivia {
             this.tiempoEspera = System.currentTimeMillis();
         }
 
+        /**
+         * Verifica si el jugador sigue siendo válido para participar en una partida
+         * @return true si el jugador está conectado y no ha cancelado
+         */
         boolean esValido() {
             boolean socketValido = socket != null && !socket.isClosed() && !cancelado;
             boolean nombreValido = nombre != null && !nombre.trim().isEmpty();
@@ -129,25 +143,39 @@ public class ServidorTrivia {
             return resultado;
         }
 
+        /**
+         * Calcula el tiempo que lleva esperando en cola
+         * @return Tiempo en milisegundos desde que entró en cola
+         */
         long tiempoEsperando() {
             return System.currentTimeMillis() - tiempoEspera;
         }
 
+        /**
+         * Marca al jugador como cancelado para exclusión de la cola
+         */
         void marcarCancelado() {
             this.cancelado = true;
         }
     }
 
     /**
-     * Maneja la comunicación con un cliente individual
+     * Clase que maneja la comunicación con un cliente individual
+     * Se ejecuta en un hilo separado para cada conexión entrante
      */
     private static class ManejadorCliente implements Runnable {
-        private final Socket socket;
+        private final Socket socket; // Socket de la conexión del cliente
 
+        /**
+         * Constructor del manejador de cliente
+         */
         public ManejadorCliente(Socket socket) {
             this.socket = socket;
         }
 
+        /**
+         * Método principal que maneja todo el flujo de comunicación con el cliente
+         */
         @Override
         public void run() {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -155,11 +183,11 @@ public class ServidorTrivia {
 
                 System.out.println("👋 Cliente conectado desde: " + socket.getInetAddress());
 
-                // Paso 1: Solicitar nombre
+                // Paso 1: Solicitar y validar nombre del jugador
                 String nombre = solicitarNombre(in, out);
                 if (nombre == null) return;
 
-                // Paso 2: Seleccionar categoría y modo
+                // Paso 2: Seleccionar categoría y modo de juego
                 String[] seleccion = solicitarCategoriaYModo(in, out, nombre);
                 if (seleccion == null) return;
 
@@ -175,20 +203,20 @@ public class ServidorTrivia {
                     }
                 }
 
-                // Paso 4: Crear jugador pendiente y añadir a la cola
+                // Paso 4: Crear jugador pendiente y añadir a la cola de espera
                 JugadorPendiente jugador = new JugadorPendiente(socket, nombre, categoria, modo, in, out);
 
-                // Escuchar cancelaciones mientras espera
+                // Iniciar hilo para escuchar cancelaciones mientras espera
                 iniciarEscuchaCancelacion(jugador);
 
                 colaClientes.put(jugador);
                 System.out.println("👤 " + nombre + " agregado a la cola (" + modo + ", " + categoria + ")");
                 System.out.println("📊 Total en cola: " + colaClientes.size());
 
-                // IMPORTANTE: No cerrar la conexión aquí, mantenerla abierta
+                // IMPORTANTE: Mantener la conexión abierta para la partida
                 // La conexión se cerrará cuando termine la partida
 
-                // Mantener el hilo vivo hasta que la partida termine
+                // Mantener el hilo vivo hasta que la partida termine o se desconecte
                 while (!socket.isClosed() && jugador.esValido()) {
                     Thread.sleep(1000);
                 }
@@ -197,7 +225,7 @@ public class ServidorTrivia {
                 System.out.println("❌ Error manejando cliente: " + e.getMessage());
                 e.printStackTrace();
             } finally {
-                // Solo cerrar si no está en una partida activa
+                // Cerrar conexión solo si no está en una partida activa
                 try {
                     if (socket != null && !socket.isClosed()) {
                         System.out.println("🔌 Cerrando conexión del cliente");
@@ -209,6 +237,7 @@ public class ServidorTrivia {
 
         /**
          * Solicita y valida el nombre del jugador
+         * @return Nombre válido del jugador o null si se cancela
          */
         private String solicitarNombre(BufferedReader in, PrintWriter out) throws IOException {
             out.println("SOLICITUD_NOMBRE");
@@ -220,19 +249,21 @@ public class ServidorTrivia {
             }
 
             nombre = nombre.trim();
-            JugadorDAO.verificarYCrearJugador(nombre);
+            JugadorDAO.verificarYCrearJugador(nombre); // Crear jugador en BD si no existe
             System.out.println("✅ Jugador identificado: " + nombre);
             return nombre;
         }
 
         /**
-         * Solicita la categoría y modo de juego
+         * Solicita la categoría y modo de juego al cliente
+         * También maneja comandos especiales como estadísticas y puntuación
+         * @return Array con [categoría, modo] o null si se cancela
          */
         private String[] solicitarCategoriaYModo(BufferedReader in, PrintWriter out, String nombre) throws IOException {
             List<String> categoriasDisponibles = List.of("conocimiento-general", "musica", "geografia", "deportes");
 
             while (true) {
-                // Enviar categorías disponibles
+                // Enviar lista de categorías disponibles
                 StringBuilder categoriasMsg = new StringBuilder("CATEGORIAS_DISPONIBLES");
                 for (String cat : categoriasDisponibles) {
                     categoriasMsg.append(";").append(cat);
@@ -245,7 +276,7 @@ public class ServidorTrivia {
                     return null;
                 }
 
-                // Procesar comandos especiales
+                // Procesar comandos especiales del cliente
                 if ("estadisticas".equalsIgnoreCase(respuesta)) {
                     String stats = JugadorDAO.obtenerEstadisticas(nombre);
                     out.println("ESTADISTICAS;" + stats.replace("\n", "|"));
@@ -258,7 +289,7 @@ public class ServidorTrivia {
                     continue;
                 }
 
-                // Parsear selección: "categoria:modo" (ej: "musica:solo")
+                // Parsear selección en formato: "categoria:modo" (ej: "musica:solo")
                 String[] partes = respuesta.split(":");
                 if (partes.length != 2) {
                     out.println("SELECCION_INVALIDA;FORMATO:categoria:modo");
@@ -268,13 +299,13 @@ public class ServidorTrivia {
                 String categoria = partes[0].toLowerCase().trim();
                 String modo = partes[1].toLowerCase().trim();
 
-                // Validar categoría
+                // Validar categoría seleccionada
                 if (!categoriasDisponibles.contains(categoria)) {
                     out.println("CATEGORIA_INVALIDA;" + categoria);
                     continue;
                 }
 
-                // Validar modo
+                // Validar modo de juego
                 if (!"solo".equals(modo) && !"esperar".equals(modo)) {
                     out.println("MODO_INVALIDO;" + modo);
                     continue;
@@ -286,7 +317,8 @@ public class ServidorTrivia {
         }
 
         /**
-         * Escucha cancelaciones del cliente mientras espera en cola
+         * Inicia un hilo para escuchar cancelaciones del cliente mientras espera en cola
+         * @param jugador El jugador pendiente a monitorear
          */
         private void iniciarEscuchaCancelacion(JugadorPendiente jugador) {
             new Thread(() -> {
@@ -305,7 +337,7 @@ public class ServidorTrivia {
                         }
                     }
                 } catch (Exception e) {
-                    // Cliente desconectado
+                    // Cliente desconectado inesperadamente
                     jugador.marcarCancelado();
                     colaClientes.remove(jugador);
                     System.out.println("🔌 " + jugador.nombre + " se desconectó");
@@ -315,12 +347,13 @@ public class ServidorTrivia {
     }
 
     /**
-     * Procesa la cola de jugadores y organiza partidas
+     * Procesa la cola de jugadores y organiza partidas según disponibilidad y preferencias
+     * Prioriza partidas individuales sobre multijugador para mejor experiencia
      */
     private static void procesarSiguientePartida() {
         synchronized (ServidorTrivia.class) {
             try {
-                // Clean disconnected clients first
+                // Limpiar clientes desconectados primero
                 int clientesAntes = colaClientes.size();
                 colaClientes.removeIf(j -> !j.esValido());
                 int clientesDespues = colaClientes.size();
@@ -335,14 +368,14 @@ public class ServidorTrivia {
 
                 System.out.println("🔍 Procesando cola: " + colaClientes.size() + " jugadores");
 
-                // Priority 1: Solo players (immediate start)
+                // Prioridad 1: Jugadores individuales (inicio inmediato)
                 JugadorPendiente jugadorSolo = encontrarJugadorSolo();
                 if (jugadorSolo != null) {
                     iniciarPartidaSolo(jugadorSolo);
                     return;
                 }
 
-                // Priority 2: Multiplayer pairs
+                // Prioridad 2: Parejas multijugador
                 JugadorPendiente[] pareja = encontrarParejaMultijugador();
                 if (pareja != null) {
                     iniciarPartidaMultijugador(pareja[0], pareja[1]);
@@ -356,7 +389,8 @@ public class ServidorTrivia {
     }
 
     /**
-     * Busca un jugador que quiera jugar solo
+     * Busca un jugador que quiera jugar en modo individual
+     * @return Jugador encontrado o null si no hay ninguno
      */
     private static JugadorPendiente encontrarJugadorSolo() {
         for (JugadorPendiente jugador : colaClientes) {
@@ -373,12 +407,14 @@ public class ServidorTrivia {
     }
 
     /**
-     * Busca una pareja compatible para multijugador - IMPROVED VERSION
+     * Busca una pareja compatible para partida multijugador
+     * Prioriza emparejar por misma categoría, luego por tiempo de espera
+     * @return Array con dos jugadores emparejados o null si no es posible
      */
     private static JugadorPendiente[] encontrarParejaMultijugador() {
         List<JugadorPendiente> esperando = new ArrayList<>();
 
-        // Collect all waiting players
+        // Recopilar todos los jugadores esperando multijugador
         for (JugadorPendiente jugador : colaClientes) {
             if ("esperar".equals(jugador.modo) && jugador.esValido()) {
                 esperando.add(jugador);
@@ -391,7 +427,7 @@ public class ServidorTrivia {
             return null;
         }
 
-        // Try to match by same category first
+        // Intentar emparejar por misma categoría primero
         for (int i = 0; i < esperando.size(); i++) {
             for (int j = i + 1; j < esperando.size(); j++) {
                 JugadorPendiente j1 = esperando.get(i);
@@ -406,8 +442,8 @@ public class ServidorTrivia {
             }
         }
 
-        // If no same category match, match any two if they've been waiting long enough (10 seconds)
-        long tiempoLimite = 10000; // 10 seconds
+        // Si no hay coincidencia de categoría, emparejar cualquier dos si han esperado suficiente tiempo
+        long tiempoLimite = 10000; // 10 segundos
         for (int i = 0; i < esperando.size(); i++) {
             for (int j = i + 1; j < esperando.size(); j++) {
                 JugadorPendiente j1 = esperando.get(i);
@@ -416,7 +452,7 @@ public class ServidorTrivia {
                 if (j1.tiempoEsperando() > tiempoLimite || j2.tiempoEsperando() > tiempoLimite) {
                     colaClientes.remove(j1);
                     colaClientes.remove(j2);
-                    // Use the category of the player who waited longer
+                    // Usar la categoría del jugador que más tiempo ha esperado
                     String categoriaFinal = j1.tiempoEsperando() > j2.tiempoEsperando() ? j1.categoria : j2.categoria;
                     j1.categoria = categoriaFinal;
                     j2.categoria = categoriaFinal;
@@ -431,7 +467,8 @@ public class ServidorTrivia {
     }
 
     /**
-     * Inicia una partida individual
+     * Inicia una partida individual para un jugador
+     * @param jugador El jugador que participará en modo individual
      */
     private static void iniciarPartidaSolo(JugadorPendiente jugador) {
         partidaEnCurso = true;
@@ -440,13 +477,14 @@ public class ServidorTrivia {
         // Notificar al cliente que se encontró la partida
         jugador.out.println("PARTIDA_ENCONTRADA;TIPO:SOLO;CATEGORIA:" + jugador.categoria);
 
-        // Pequeña pausa para que el cliente procese el mensaje
+        // Pausa para que el cliente procese el mensaje
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
+        // Ejecutar partida en hilo separado
         new Thread(() -> {
             try {
                 new PartidaTrivia(jugador.socket, null, jugador.nombre, null, jugador.categoria).run();
@@ -461,24 +499,27 @@ public class ServidorTrivia {
     }
 
     /**
-     * Inicia una partida multijugador
+     * Inicia una partida multijugador entre dos jugadores
+     * @param j1 Primer jugador
+     * @param j2 Segundo jugador
      */
     private static void iniciarPartidaMultijugador(JugadorPendiente j1, JugadorPendiente j2) {
         partidaEnCurso = true;
         System.out.println("🆚 Iniciando partida multijugador: " + j1.nombre + " vs " + j2.nombre +
                 " (" + j1.categoria + ")");
 
-        // Notificar a ambos clientes
+        // Notificar a ambos clientes sobre la partida encontrada
         j1.out.println("PARTIDA_ENCONTRADA;TIPO:MULTIJUGADOR;OPONENTE:" + j2.nombre + ";CATEGORIA:" + j1.categoria);
         j2.out.println("PARTIDA_ENCONTRADA;TIPO:MULTIJUGADOR;OPONENTE:" + j1.nombre + ";CATEGORIA:" + j1.categoria);
 
-        // Pequeña pausa para que los clientes procesen el mensaje
+        // Pausa para que ambos clientes procesen el mensaje
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
+        // Ejecutar partida multijugador en hilo separado
         new Thread(() -> {
             try {
                 new PartidaTrivia(j1.socket, j2.socket, j1.nombre, j2.nombre, j1.categoria).run();

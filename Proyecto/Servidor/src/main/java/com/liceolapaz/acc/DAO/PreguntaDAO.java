@@ -16,14 +16,20 @@ import java.util.List;
 
 public class PreguntaDAO {
 
+    // Registro de servicios estándar de Hibernate configurado desde hibernate.cfg.xml
     private static final StandardServiceRegistry sr =
             new StandardServiceRegistryBuilder().configure().build();
 
+    // Fábrica de sesiones de Hibernate para gestionar conexiones a la base de datos
     private static final SessionFactory sf =
             new MetadataSources(sr).buildMetadata().buildSessionFactory();
 
     /**
-     * FIXED: Obtiene preguntas aleatorias de una categoría específica
+     * Obtiene preguntas aleatorias de una categoría específica
+     * Si no existen preguntas en la base de datos, las carga automáticamente desde JSON
+     * @param categoria Categoría de las preguntas a obtener
+     * @param cantidad Número de preguntas a devolver
+     * @return Lista de preguntas aleatorias de la categoría especificada
      */
     public static List<Pregunta> obtenerPreguntasPorCategoria(String categoria, int cantidad) {
         Session session = sf.openSession();
@@ -55,7 +61,7 @@ public class PreguntaDAO {
                 System.out.println("✅ Preguntas cargadas: " + count);
             }
 
-            // Obtener preguntas aleatorias
+            // Obtener preguntas aleatorias usando ORDER BY RAND()
             List<Pregunta> preguntas = session.createQuery(
                             "FROM Pregunta WHERE categoria = :categoria AND activa = true ORDER BY RAND()",
                             Pregunta.class)
@@ -67,7 +73,7 @@ public class PreguntaDAO {
 
             System.out.println("🎯 Devolviendo " + preguntas.size() + " preguntas para " + categoria);
 
-            // FIXED: Debug de preguntas cargadas
+            // Debug de preguntas cargadas para verificar integridad
             for (int i = 0; i < preguntas.size(); i++) {
                 Pregunta p = preguntas.get(i);
                 System.out.println("   DEBUG Pregunta " + (i+1) + " (ID:" + p.getId() + "): " +
@@ -87,13 +93,17 @@ public class PreguntaDAO {
     }
 
     /**
-     * FIXED: Carga preguntas desde un archivo JSON con validación mejorada
+     * Carga preguntas desde un archivo JSON con validación mejorada
+     * Convierte índices de respuestas de JSON (1-4) a base de datos (0-3)
+     * @param categoria Categoría de las preguntas a cargar
+     * @param session Sesión de Hibernate activa para persistir las preguntas
      */
     private static void cargarPreguntasDesdeJSON(String categoria, Session session) {
         try {
             String nombreArchivo = "preguntas-" + categoria + ".json";
             System.out.println("📂 Intentando cargar: " + nombreArchivo);
 
+            // Buscar archivo JSON en classpath
             InputStream inputStream = PreguntaDAO.class.getClassLoader().getResourceAsStream(nombreArchivo);
 
             if (inputStream == null) {
@@ -112,13 +122,14 @@ public class PreguntaDAO {
                     // Extraer datos del JSON
                     pregunta.setTextoPregunta(node.get("pregunta").asText());
 
+                    // Cargar las cuatro opciones de respuesta
                     JsonNode opciones = node.get("opciones");
                     pregunta.setOpcionA(opciones.get(0).asText());
                     pregunta.setOpcionB(opciones.get(1).asText());
                     pregunta.setOpcionC(opciones.get(2).asText());
                     pregunta.setOpcionD(opciones.get(3).asText());
 
-                    // FIXED: Conversión correcta de índices JSON a base de datos
+                    // CORREGIDO: Conversión correcta de índices JSON a base de datos
                     int respuestaJSON = node.get("respuestaCorrecta").asInt();
                     // JSON usa índices 1-4, convertir a 0-3 para la base de datos
                     int respuestaDB = respuestaJSON - 1;
@@ -132,6 +143,7 @@ public class PreguntaDAO {
 
                     pregunta.setRespuestaCorrecta(respuestaDB);
 
+                    // Configurar metadatos de la pregunta
                     pregunta.setCategoria(categoria);
                     pregunta.setDificultad(node.has("dificultad") ? node.get("dificultad").asText() : "medio");
                     pregunta.setActiva(true);
@@ -140,7 +152,7 @@ public class PreguntaDAO {
                     session.persist(pregunta);
                     preguntasCargadas++;
 
-                    // FIXED: Log mejorado para depuración
+                    // CORREGIDO: Log mejorado para depuración
                     System.out.println("📝 Pregunta " + preguntasCargadas + " cargada:");
                     System.out.println("   Texto: " + pregunta.getTextoPregunta().substring(0, Math.min(50, pregunta.getTextoPregunta().length())) + "...");
                     System.out.println("   Respuesta JSON: " + respuestaJSON + " -> DB: " + respuestaDB + " (" + pregunta.getLetraRespuesta() + ")");
@@ -162,12 +174,14 @@ public class PreguntaDAO {
     }
 
     /**
-     * Obtiene todas las categorías disponibles
+     * Obtiene todas las categorías disponibles en el sistema
+     * Si no hay categorías en la base de datos, devuelve categorías predeterminadas
+     * @return Lista de categorías disponibles
      */
     public static List<String> obtenerCategorias() {
         Session session = sf.openSession();
         try {
-            // Intentar obtener de la base de datos
+            // Intentar obtener categorías de la base de datos
             List<String> categorias = session.createQuery(
                             "SELECT DISTINCT p.categoria FROM Pregunta p WHERE p.activa = true",
                             String.class)
@@ -193,11 +207,14 @@ public class PreguntaDAO {
     }
 
     /**
-     * Cuenta preguntas por categoría
+     * Cuenta el número de preguntas activas por categoría
+     * @param categoria Categoría a consultar
+     * @return Número de preguntas en la categoría
      */
     public static long contarPreguntasPorCategoria(String categoria) {
         Session session = sf.openSession();
         try {
+            // Consulta HQL para contar preguntas activas por categoría
             Long count = (Long) session.createQuery(
                             "SELECT COUNT(p) FROM Pregunta p WHERE p.categoria = :categoria AND p.activa = true")
                     .setParameter("categoria", categoria.toLowerCase())
@@ -216,7 +233,9 @@ public class PreguntaDAO {
     }
 
     /**
-     * Obtiene una pregunta por ID
+     * Obtiene una pregunta específica por su ID
+     * @param id ID de la pregunta a buscar
+     * @return La pregunta encontrada o null si no existe
      */
     public static Pregunta obtenerPreguntaPorId(int id) {
         Session session = sf.openSession();
@@ -238,11 +257,14 @@ public class PreguntaDAO {
     }
 
     /**
-     * NUEVO: Método para validar integridad de preguntas cargadas
+     * Valida la integridad de las preguntas cargadas en una categoría
+     * Verifica que las respuestas correctas estén en rango válido y las opciones no estén vacías
+     * @param categoria Categoría a validar
      */
     public static void validarIntegridadPreguntas(String categoria) {
         Session session = sf.openSession();
         try {
+            // Obtener todas las preguntas activas de la categoría
             List<Pregunta> preguntas = session.createQuery(
                             "FROM Pregunta WHERE categoria = :categoria AND activa = true",
                             Pregunta.class)
@@ -255,7 +277,7 @@ public class PreguntaDAO {
                 boolean valida = true;
                 String errores = "";
 
-                // Validar rango de respuesta correcta
+                // Validar rango de respuesta correcta (debe estar entre 0-3)
                 if (p.getRespuestaCorrecta() < 0 || p.getRespuestaCorrecta() > 3) {
                     valida = false;
                     errores += "Respuesta fuera de rango (" + p.getRespuestaCorrecta() + "). ";
@@ -285,13 +307,14 @@ public class PreguntaDAO {
     }
 
     /**
-     * Elimina todas las preguntas (útil para testing)
+     * Elimina todas las preguntas de la base de datos (útil para testing y limpieza)
      */
     public static void eliminarTodasLasPreguntas() {
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
+            // Ejecutar operación de eliminación masiva
             int eliminadas = session.createQuery("DELETE FROM Pregunta").executeUpdate();
             transaction.commit();
             System.out.println("🗑️ Eliminadas " + eliminadas + " preguntas de la base de datos");
@@ -304,7 +327,7 @@ public class PreguntaDAO {
     }
 
     /**
-     * Cierra la factory de Hibernate
+     * Cierra la SessionFactory y libera recursos de Hibernate
      */
     public static void cerrarFactory() {
         try {

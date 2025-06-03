@@ -4,41 +4,51 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- Identificación del proyecto cliente -->
   <groupId>com.example</groupId>
   <artifactId>Cliente</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Cliente</name>
 
+  <!-- Propiedades del proyecto -->
   <properties>
+    <!-- Codificación de caracteres para el proyecto -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Versión de JUnit para pruebas unitarias -->
     <junit.version>5.10.2</junit.version>
+    <!-- Versión de JavaFX para la interfaz gráfica -->
     <javafx.version>21</javafx.version>
+    <!-- Versión de Java para compilar el código fuente -->
     <maven.compiler.source>11</maven.compiler.source>
+    <!-- Versión de Java objetivo para la compilación -->
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
+  <!-- Dependencias del proyecto cliente -->
   <dependencies>
-    <!-- JavaFX Controls -->
+    <!-- JavaFX Controls - Componentes básicos de interfaz gráfica (botones, labels, etc.) -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>${javafx.version}</version>
     </dependency>
 
-    <!-- JavaFX FXML -->
+    <!-- JavaFX FXML - Soporte para archivos FXML que definen interfaces de usuario -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
       <version>${javafx.version}</version>
     </dependency>
 
-    <!-- JUnit for testing (optional) -->
+    <!-- JUnit API - Framework para escribir y ejecutar pruebas unitarias (opcional) -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- JUnit Engine - Motor de ejecución para las pruebas JUnit -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -47,35 +57,45 @@
     </dependency>
   </dependencies>
 
+  <!-- Configuración de construcción del proyecto -->
   <build>
     <plugins>
-      <!-- Maven Compiler Plugin -->
+      <!-- Plugin del compilador de Maven para configurar versiones de Java -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
+          <!-- Versión de Java para el código fuente -->
           <source>11</source>
+          <!-- Versión de Java objetivo para los archivos compilados -->
           <target>11</target>
         </configuration>
       </plugin>
 
-      <!-- JavaFX Maven Plugin -->
+      <!-- Plugin de JavaFX para Maven - Permite ejecutar y empaquetar aplicaciones JavaFX -->
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <executions>
           <execution>
-            <!-- Default configuration for running with: mvn clean javafx:run -->
+            <!-- Configuración por defecto para ejecutar con: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
+              <!-- Clase principal de la aplicación JavaFX -->
               <mainClass>com.example.cliente.TriviaApplication</mainClass>
+              <!-- Nombre del lanzador de la aplicación -->
               <launcher>trivia-app</launcher>
+              <!-- Nombre del archivo ZIP generado por jlink -->
               <jlinkZipName>trivia-app</jlinkZipName>
+              <!-- Nombre de la imagen generada por jlink -->
               <jlinkImageName>trivia-app</jlinkImageName>
+              <!-- No incluir páginas de manual para reducir tamaño -->
               <noManPages>true</noManPages>
+              <!-- Eliminar información de depuración para optimizar -->
               <stripDebug>true</stripDebug>
+              <!-- No incluir archivos de cabecera para reducir tamaño -->
               <noHeaderFiles>true</noHeaderFiles>
             </configuration>
           </execution>
