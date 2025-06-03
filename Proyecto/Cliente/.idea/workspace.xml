@@ -7,6 +7,7 @@
     <list default="true" id="ff680801-2caa-4cc1-aa57-5f2f8eac2e1b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/PartidaTrivia.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/PartidaTrivia.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/FP/Proyecto/Servidor"
+    "last_opened_file_path": "D:/FP/Proyecto/Cliente"
   }
 }]]></component>
   <component name="RecentsManager">

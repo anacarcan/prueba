@@ -43,6 +43,9 @@ public class PartidaTrivia implements Runnable {
     private final BlockingQueue<String> colaJ1 = new LinkedBlockingQueue<>(); // Cola de mensajes jugador 1
     private final BlockingQueue<String> colaJ2 = new LinkedBlockingQueue<>(); // Cola de mensajes jugador 2
 
+    private final Object sincronizacion = new Object();
+    private volatile boolean esperandoRespuesta = false;
+
     /**
      * Constructor para inicializar una partida de trivia
      * @param jugador1 Socket del primer jugador (obligatorio)
@@ -112,13 +115,27 @@ public class PartidaTrivia implements Runnable {
         // Configurar conexión del jugador 1
         BufferedReader in1 = new BufferedReader(new InputStreamReader(jugador1.getInputStream()));
         salida1 = new PrintWriter(jugador1.getOutputStream(), true);
-        new Thread(() -> escucharJugador(in1, colaJ1, nombreJ1)).start();
 
-        // Configurar conexión del jugador 2 si existe (partida multijugador)
+        // CORREGIDO: Iniciar hilo y esperar a que esté listo
+        Thread hiloJ1 = new Thread(() -> escucharJugador(in1, colaJ1, nombreJ1));
+        hiloJ1.start();
+
+        // Configurar conexión del jugador 2 si existe
+        Thread hiloJ2 = null;
         if (jugador2 != null) {
             BufferedReader in2 = new BufferedReader(new InputStreamReader(jugador2.getInputStream()));
             salida2 = new PrintWriter(jugador2.getOutputStream(), true);
-            new Thread(() -> escucharJugador(in2, colaJ2, nombreJ2)).start();
+
+            hiloJ2 = new Thread(() -> escucharJugador(in2, colaJ2, nombreJ2));
+            hiloJ2.start();
+        }
+
+        // NUEVO: Pausa para asegurar que los hilos estén listos
+        try {
+            Thread.sleep(100); // 100ms debería ser suficiente
+            System.out.println("✅ Hilos de escucha iniciados y listos");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -130,19 +147,17 @@ public class PartidaTrivia implements Runnable {
         System.out.println("🎮 Iniciando partida de trivia...");
 
         if (jugador2 == null) {
-            // Partida individual
             salida1.println("PARTIDA_SOLO_INICIADA;CATEGORIA:" + categoria);
             System.out.println("👤 Partida individual iniciada para " + nombreJ1);
         } else {
-            // Partida multijugador
             salida1.println("PARTIDA_INICIADA;OPONENTE:" + nombreJ2 + ";CATEGORIA:" + categoria);
             salida2.println("PARTIDA_INICIADA;OPONENTE:" + nombreJ1 + ";CATEGORIA:" + categoria);
             System.out.println("🆚 Partida multijugador iniciada: " + nombreJ1 + " vs " + nombreJ2);
         }
 
-        // Pausa para que los clientes procesen el mensaje de inicio
+        // AUMENTAR: Pausa más larga para asegurar sincronización completa
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000); // 2 segundos en lugar de 1
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -187,34 +202,56 @@ public class PartidaTrivia implements Runnable {
         // Enviar pregunta a ambos jugadores
         enviarPregunta(pregunta);
 
+        // Pausa para que el cliente procese la pregunta
+        Thread.sleep(1500); // AUMENTADO: Más tiempo para procesar
+
         // Solicitar respuestas a los jugadores
+        System.out.println("📤 Solicitando respuestas a los jugadores...");
         salida1.println("SOLICITAR_RESPUESTA");
         if (jugador2 != null) salida2.println("SOLICITAR_RESPUESTA");
 
-        // Obtener respuestas con timeout de TIEMPO_RESPUESTA segundos
-        String respuestaJ1 = colaJ1.poll(TIEMPO_RESPUESTA, TimeUnit.SECONDS);
-        String respuestaJ2 = jugador2 != null ? colaJ2.poll(TIEMPO_RESPUESTA, TimeUnit.SECONDS) : null;
+        // Pausa adicional para asegurar que el cliente esté listo
+        Thread.sleep(500);
 
+        // Debug: verificar estado de las colas antes de esperar
+        System.out.println("🔍 Estado colas ANTES de esperar - J1: " + colaJ1.size());
+
+        // Obtener respuestas con timeout REDUCIDO para evitar desincronización
+        System.out.println("⏳ Esperando respuestas durante 15 segundos...");
+        String respuestaJ1 = colaJ1.poll(15, TimeUnit.SECONDS); // REDUCIDO de 20 a 15
+        String respuestaJ2 = jugador2 != null ? colaJ2.poll(15, TimeUnit.SECONDS) : null;
+
+        // Debug: estado después de recibir respuestas
+        System.out.println("🔍 Estado colas DESPUÉS de esperar - J1: " + colaJ1.size());
         System.out.println("📥 Respuestas recibidas - J1: '" + respuestaJ1 + "', J2: '" + respuestaJ2 + "'");
 
         // Verificar si algún jugador canceló la partida
         if (esCancelacion(respuestaJ1, nombreJ1) || esCancelacion(respuestaJ2, nombreJ2)) {
+            System.out.println("❌ Partida cancelada por respuesta de cancelación");
             return false;
         }
 
-        // CORREGIDO: Procesar respuestas y actualizar aciertos correctamente
+        // Procesar respuestas y actualizar aciertos
         boolean correctaJ1 = procesarRespuesta(respuestaJ1, pregunta, nombreJ1, salida1);
         boolean correctaJ2 = jugador2 != null ? procesarRespuesta(respuestaJ2, pregunta, nombreJ2, salida2) : false;
 
-        // CORREGIDO: Actualizar contadores de aciertos (no puntos todavía)
+        // Actualizar contadores de aciertos
         if (correctaJ1) {
             aciertosJ1++;
             System.out.println("✅ " + nombreJ1 + " acertó (total aciertos: " + aciertosJ1 + ")");
+        } else {
+            System.out.println("❌ " + nombreJ1 + " falló (total aciertos: " + aciertosJ1 + ")");
         }
+
         if (correctaJ2) {
             aciertosJ2++;
             System.out.println("✅ " + nombreJ2 + " acertó (total aciertos: " + aciertosJ2 + ")");
+        } else if (jugador2 != null) {
+            System.out.println("❌ " + nombreJ2 + " falló (total aciertos: " + aciertosJ2 + ")");
         }
+
+        // Pausa breve antes de enviar resultado
+        Thread.sleep(1000);
 
         // Enviar resultado de la pregunta a ambos jugadores
         enviarResultadoPregunta(pregunta);
@@ -242,7 +279,7 @@ public class PartidaTrivia implements Runnable {
     }
 
     /**
-     * Procesamiento de respuesta corregido
+     * Procesamiento de respuesta corregido con debugging extenso
      * Evalúa si una respuesta es correcta y envía feedback al jugador
      * @param respuesta La respuesta del jugador (A, B, C, D o null por timeout)
      * @param pregunta La pregunta actual para validar la respuesta
@@ -251,10 +288,23 @@ public class PartidaTrivia implements Runnable {
      * @return true si la respuesta es correcta, false en caso contrario
      */
     private boolean procesarRespuesta(String respuesta, Pregunta pregunta, String nombreJugador, PrintWriter salida) {
+        System.out.println("🐛 DEBUG RESPUESTA para " + nombreJugador + ":");
+        System.out.println("  Pregunta ID: " + pregunta.getId());
+        System.out.println("  Texto: " + pregunta.getTextoPregunta());
+        System.out.println("  A) " + pregunta.getOpcionA());
+        System.out.println("  B) " + pregunta.getOpcionB());
+        System.out.println("  C) " + pregunta.getOpcionC());
+        System.out.println("  D) " + pregunta.getOpcionD());
+        System.out.println("  Respuesta correcta en BD: " + pregunta.getRespuestaCorrecta());
+        System.out.println("  Letra correcta: " + pregunta.getLetraRespuesta());
+        System.out.println("  Texto correcto: " + pregunta.getRespuestaTexto());
+        System.out.println("  Jugador respondió: '" + respuesta + "'");
+
         if (respuesta == null) {
             // Timeout - el jugador no respondió a tiempo
             salida.println("TIMEOUT");
-            System.out.println("⏰ Timeout para " + nombreJugador);
+            System.out.println("  Resultado: TIMEOUT ⏰");
+            System.out.println("🔚 FIN DEBUG");
             return false;
         }
 
@@ -264,9 +314,8 @@ public class PartidaTrivia implements Runnable {
         // Enviar feedback inmediato al jugador
         salida.println(correcta ? "RESPUESTA_CORRECTA" : "RESPUESTA_INCORRECTA");
 
-        System.out.println((correcta ? "✅" : "❌") + " " + nombreJugador +
-                " respondió: '" + respuesta + "' (Correcta: " + pregunta.getLetraRespuesta() + ") - " +
-                (correcta ? "ACIERTO" : "FALLO"));
+        System.out.println("  Resultado: " + (correcta ? "CORRECTA ✅" : "INCORRECTA ❌"));
+        System.out.println("🔚 FIN DEBUG");
 
         return correcta;
     }
@@ -500,11 +549,22 @@ public class PartidaTrivia implements Runnable {
             String linea;
             while ((linea = lector.readLine()) != null) {
                 System.out.println("📥 " + nombre + " envió: '" + linea + "'");
-                cola.put(linea);
+                try {
+                    cola.put(linea); // SIMPLE: solo añadir a la cola
+                    System.out.println("🔄 Mensaje de " + nombre + " añadido a cola: true (cola size: " + cola.size() + ")");
+                } catch (InterruptedException e) {
+                    System.out.println("⚠️ Hilo interrumpido al añadir mensaje de " + nombre);
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
         } catch (Exception e) {
-            System.out.println("🔌 " + nombre + " se ha desconectado");
-            cola.offer("cancelar"); // Señal de desconexión
+            System.out.println("🔌 " + nombre + " se ha desconectado: " + e.getMessage());
+            try {
+                cola.put("cancelar");
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
