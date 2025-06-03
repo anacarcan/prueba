@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Cada cuántos años se celebran los Juegos Olímpicos?",
+    "opciones": ["2 años", "3 años", "4 años", "5 años"],
+    "respuestaCorrecta": 3,
+    "dificultad": "facil"
+  },
+  {
+    "id": 2,
+    "pregunta": "¿En qué deporte destacó Michael Jordan?",
+    "opciones": ["Fútbol", "Baloncesto", "Tenis", "Golf"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Cuántos jugadores tiene un equipo de fútbol en el campo?",
+    "opciones": ["10", "11", "12", "9"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Qué tenista español ganó más torneos de Roland Garros?",
+    "opciones": ["Carlos Alcaraz", "Rafael Nadal", "David Ferrer", "Roberto Bautista"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Quién ganó el Balón de Oro en 2023?",
+    "opciones": ["Lionel Messi", "Erling Haaland", "Kylian Mbappé", "Karim Benzema"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 6,
+    "pregunta": "¿En qué año Carlos Alcaraz ganó su primer US Open?",
+    "opciones": ["2021", "2022", "2023", "2024"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 7,
+    "pregunta": "¿Qué jugador de la NBA es conocido como 'The King'?",
+    "opciones": ["Kobe Bryant", "LeBron James", "Stephen Curry", "Kevin Durant"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Cuál es la distancia de una maratón?",
+    "opciones": ["40.195 km", "42.195 km", "41.195 km", "43.195 km"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Qué país ganó la Copa del Mundo 2022 en Qatar?",
+    "opciones": ["Argentina", "Brasil", "Francia", "España"],
+    "respuestaCorrecta": 1,
+    "dificultad": "facil"
+  },
+  {
+    "id": 10,
+    "pregunta": "¿En qué equipo de Fórmula 1 corre Max Verstappen?",
+    "opciones": ["Mercedes", "Ferrari", "Red Bull Racing", "McLaren"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 11,
+    "pregunta": "¿Cuántos jugadores forman un equipo de voleibol en la cancha?",
+    "opciones": ["5", "6", "7", "8"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Qué velocista jamaicana tiene el récord mundial femenino de 100m?",
+    "opciones": ["Shelly-Ann Fraser-Pryce", "Elaine Thompson-Herah", "Veronica Campbell-Brown", "Shericka Jackson"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 13,
+    "pregunta": "¿En qué ciudad se celebraron los Juegos Olímpicos de 2024?",
+    "opciones": ["Tokio", "París", "Los Ángeles", "Brisbane"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Cuál es el récord mundial masculino de los 100 metros lisos?",
+    "opciones": ["9.58 segundos", "9.63 segundos", "9.69 segundos", "9.72 segundos"],
+    "respuestaCorrecta": 1,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 15,
+    "pregunta": "¿Qué equipo de fútbol español ha ganado más Champions League?",
+    "opciones": ["FC Barcelona", "Real Madrid", "Atlético Madrid", "Valencia"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 16,
+    "pregunta": "¿Quién es considerado el mejor jugador de fútbol de todos los tiempos junto a Pelé?",
+    "opciones": ["Cristiano Ronaldo", "Lionel Messi", "Diego Maradona", "Johan Cruyff"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 17,
+    "pregunta": "¿En qué deporte compite Simone Biles?",
+    "opciones": ["Natación", "Atletismo", "Gimnasia artística", "Tenis"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 18,
+    "pregunta": "¿Qué nadador tiene más medallas olímpicas de oro?",
+    "opciones": ["Mark Spitz", "Michael Phelps", "Ian Thorpe", "Adam Peaty"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 19,
+    "pregunta": "¿Cuántos campeonatos de la NBA ha ganado Stephen Curry con los Warriors?",
+    "opciones": ["3", "4", "5", "6"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 20,
+    "pregunta": "¿En qué año Novak Djokovic completó su 'Golden Slam' de carrera?",
+    "opciones": ["2021", "2023", "2024", "Aún no lo ha completado"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 21,
+    "pregunta": "¿Qué piloto de Fórmula 1 tiene más campeonatos del mundo?",
+    "opciones": ["Ayrton Senna", "Lewis Hamilton", "Michael Schumacher", "Sebastian Vettel"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 22,
+    "pregunta": "¿Quién ganó el Mundial de MotoGP en 2023?",
+    "opciones": ["Marc Márquez", "Francesco Bagnaia", "Fabio Quartararo", "Jorge Martín"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 23,
+    "pregunta": "¿Cuántos Grand Slams ha ganado Serena Williams?",
+    "opciones": ["21", "22", "23", "24"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 24,
+    "pregunta": "¿En qué equipo juega actualmente Cristiano Ronaldo?",
+    "opciones": ["Manchester United", "Real Madrid", "Al-Nassr", "Juventus"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 25,
+    "pregunta": "¿Qué país organizará los Juegos Olímpicos de 2028?",
+    "opciones": ["Francia", "Japón", "Estados Unidos", "Australia"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 26,
+    "pregunta": "¿Cuál es el nombre del estadio del Real Madrid?",
+    "opciones": ["Camp Nou", "Santiago Bernabéu", "Wanda Metropolitano", "Mestalla"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 27,
+    "pregunta": "¿Qué golfista ha ganado más torneos Major?",
+    "opciones": ["Tiger Woods", "Jack Nicklaus", "Arnold Palmer", "Gary Player"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 28,
+    "pregunta": "¿En qué deporte destaca Katie Ledecky?",
+    "opciones": ["Atletismo", "Natación", "Ciclismo", "Remo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 29,
+    "pregunta": "¿Cuántos títulos de Wimbledon ganó Roger Federer?",
+    "opciones": ["6", "7", "8", "9"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 30,
+    "pregunta": "¿Qué selección ganó la Eurocopa 2024?",
+    "opciones": ["España", "Inglaterra", "Francia", "Italia"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 31,
+    "pregunta": "¿En qué deporte compite Armand Duplantis?",
+    "opciones": ["Salto de longitud", "Salto con pértiga", "Lanzamiento de jabalina", "Decatlón"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 32,
+    "pregunta": "¿Cuál es la puntuación perfecta en gimnasia artística?",
+    "opciones": ["9", "10", "15", "No hay puntuación máxima"],
+    "respuestaCorrecta": 4,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 33,
+    "pregunta": "¿Qué equipo de la NFL ha ganado más Super Bowls?",
+    "opciones": ["Dallas Cowboys", "Pittsburgh Steelers", "New England Patriots", "San Francisco 49ers"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 34,
+    "pregunta": "¿En qué año se retirará Rafael Nadal del tenis profesional?",
+    "opciones": ["2023", "2024", "2025", "2026"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 35,
+    "pregunta": "¿Qué velocista ostenta el récord mundial de 200 metros?",
+    "opciones": ["Carl Lewis", "Usain Bolt", "Noah Lyles", "Michael Johnson"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 36,
+    "pregunta": "¿Cuántas medallas de oro olímpicas tiene Michael Phelps?",
+    "opciones": ["21", "23", "25", "28"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 37,
+    "pregunta": "¿En qué ciudad juega el equipo de fútbol PSG?",
+    "opciones": ["Lyon", "Marsella", "París", "Niza"],
+    "respuestaCorrecta": 3,
+    "dificultad": "facil"
+  },
+  {
+    "id": 38,
+    "pregunta": "¿Qué jugadora de tenis tiene más títulos de Grand Slam en la era profesional?",
+    "opciones": ["Martina Navratilova", "Chris Evert", "Steffi Graf", "Serena Williams"],
+    "respuestaCorrecta": 4,
+    "dificultad": "medio"
+  },
+  {
+    "id": 39,
+    "pregunta": "¿Cuántos jugadores hay en un equipo de rugby durante el juego?",
+    "opciones": ["13", "15", "16", "18"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 40,
+    "pregunta": "¿Qué equipo de baloncesto ha ganado más títulos de la NBA?",
+    "opciones": ["Los Angeles Lakers", "Boston Celtics", "Chicago Bulls", "Golden State Warriors"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 41,
+    "pregunta": "¿En qué deporte destaca Shaquille O'Neal como comentarista tras su retiro?",
+    "opciones": ["Fútbol americano", "Baloncesto", "Béisbol", "Hockey"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 42,
+    "pregunta": "¿Qué atleta keniano ostenta el récord mundial de maratón masculino?",
+    "opciones": ["Eliud Kipchoge", "Wilson Kipsang", "Dennis Kimetto", "Kelvin Kiptum"],
+    "respuestaCorrecta": 4,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 43,
+    "pregunta": "¿Cuántos sets máximo se pueden jugar en un partido de tenis masculino de Grand Slam?",
+    "opciones": ["3", "4", "5", "6"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 44,
+    "pregunta": "¿Qué país ha organizado más veces los Juegos Olímpicos de Verano?",
+    "opciones": ["Francia", "Estados Unidos", "Reino Unido", "Grecia"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 45,
+    "pregunta": "¿En qué deporte se utiliza el término 'slam dunk'?",
+    "opciones": ["Tenis", "Voleibol", "Baloncesto", "Bádminton"],
+    "respuestaCorrecta": 3,
+    "dificultad": "facil"
+  },
+  {
+    "id": 46,
+    "pregunta": "¿Qué futbolista argentino ganó más Copas del Mundo?",
+    "opciones": ["Diego Maradona", "Lionel Messi", "Gabriel Batistuta", "Juan Román Riquelme"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 47,
+    "pregunta": "¿Cuál es el torneo de tenis más antiguo del mundo?",
+    "opciones": ["US Open", "Roland Garros", "Wimbledon", "Australian Open"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 48,
+    "pregunta": "¿En qué año se celebrarán los próximos Juegos Olímpicos de Invierno?",
+    "opciones": ["2025", "2026", "2027", "2028"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 49,
+    "pregunta": "¿Qué boxeador es conocido como 'Canelo'?",
+    "opciones": ["Gennady Golovkin", "Saúl Álvarez", "Ryan García", "Oscar De La Hoya"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 50,
+    "pregunta": "¿Cuántas veces ha ganado España la Copa Davis en tenis?",
+    "opciones": ["4", "5", "6", "7"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  }
+]

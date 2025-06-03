@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Cuál fue la primera película en ganar el Oscar a Mejor Película?",
+    "opciones": ["Amanecer", "Alas", "El artista del jazz", "Metrópolis"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Qué científico descubrió la penicilina?",
+    "opciones": ["Louis Pasteur", "Alexander Fleming", "Robert Koch", "Marie Curie"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 3,
+    "pregunta": "¿En qué año se fundó la empresa Apple?",
+    "opciones": ["1975", "1976", "1977", "1978"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Cuál es el hueso más largo del cuerpo humano?",
+    "opciones": ["Húmero", "Fémur", "Tibia", "Radio"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Qué compositor escribió 'Las Cuatro Estaciones'?",
+    "opciones": ["Johann Sebastian Bach", "Antonio Vivaldi", "Wolfgang Amadeus Mozart", "Ludwig van Beethoven"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Cuál es la moneda oficial de Suiza?",
+    "opciones": ["Euro", "Franco suizo", "Corona suiza", "Dólar suizo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 7,
+    "pregunta": "¿En qué ciudad se encuentra la sede de la Corte Internacional de Justicia?",
+    "opciones": ["Ginebra", "La Haya", "Bruselas", "Estrasburgo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Cuál es el punto más bajo de la Tierra?",
+    "opciones": ["Valle de la Muerte", "Mar Muerto", "Fosa de las Marianas", "Depresión de Afar"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Qué vitamina se produce cuando la piel se expone al sol?",
+    "opciones": ["Vitamina A", "Vitamina C", "Vitamina D", "Vitamina E"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 10,
+    "pregunta": "¿En qué año se desintegró la Unión Soviética?",
+    "opciones": ["1989", "1990", "1991", "1992"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 11,
+    "pregunta": "¿Cuál es la lengua más hablada en Brasil?",
+    "opciones": ["Español", "Portugués", "Inglés", "Francés"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Quién pintó 'La noche estrellada'?",
+    "opciones": ["Pablo Picasso", "Claude Monet", "Vincent van Gogh", "Salvador Dalí"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 13,
+    "pregunta": "¿Cuál es la capital de Australia?",
+    "opciones": ["Sídney", "Melbourne", "Canberra", "Perth"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Qué gas noble tiene el símbolo químico 'Xe'?",
+    "opciones": ["Neón", "Argón", "Criptón", "Xenón"],
+    "respuestaCorrecta": 4,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 15,
+    "pregunta": "¿En qué océano se encuentra el Triángulo de las Bermudas?",
+    "opciones": ["Pacífico", "Atlántico", "Índico", "Ártico"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 16,
+    "pregunta": "¿Cuál es la novela más famosa de George Orwell publicada en 1949?",
+    "opciones": ["Rebelión en la granja", "1984", "Un mundo feliz", "Fahrenheit 451"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 17,
+    "pregunta": "¿Qué instrumento tocaba Louis Armstrong principalmente?",
+    "opciones": ["Saxofón", "Piano", "Trompeta", "Clarinete"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 18,
+    "pregunta": "¿En qué año se hundió el Titanic?",
+    "opciones": ["1910", "1911", "1912", "1913"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 19,
+    "pregunta": "¿Cuál es la estructura más alta construida por el hombre?",
+    "opciones": ["Torre Eiffel", "Empire State Building", "Burj Khalifa", "Torre CN"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 20,
+    "pregunta": "¿Qué científico formuló las tres leyes del movimiento?",
+    "opciones": ["Galileo Galilei", "Isaac Newton", "Johannes Kepler", "Albert Einstein"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 21,
+    "pregunta": "¿Cuál es el desierto más grande del mundo?",
+    "opciones": ["Sahara", "Gobi", "Antártida", "Kalahari"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 22,
+    "pregunta": "¿En qué siglo se inventó la imprenta de tipos móviles?",
+    "opciones": ["Siglo XIV", "Siglo XV", "Siglo XVI", "Siglo XIII"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 23,
+    "pregunta": "¿Cuál es el metal más abundante en la corteza terrestre?",
+    "opciones": ["Hierro", "Aluminio", "Cobre", "Plomo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 24,
+    "pregunta": "¿Qué hormona regula los niveles de azúcar en la sangre?",
+    "opciones": ["Adrenalina", "Insulina", "Testosterona", "Cortisol"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 25,
+    "pregunta": "¿Cuál fue la primera red social masiva en internet?",
+    "opciones": ["MySpace", "Friendster", "Facebook", "Orkut"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 26,
+    "pregunta": "¿En qué país se originó el tango?",
+    "opciones": ["Brasil", "Argentina", "Uruguay", "España"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 27,
+    "pregunta": "¿Cuál es la partícula subatómica con carga positiva?",
+    "opciones": ["Electrón", "Neutrón", "Protón", "Fotón"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 28,
+    "pregunta": "¿Qué ciudad es conocida como 'La Ciudad Eterna'?",
+    "opciones": ["Atenas", "Roma", "Jerusalén", "El Cairo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 29,
+    "pregunta": "¿Cuál es la raíz cuadrada de 144?",
+    "opciones": ["11", "12", "13", "14"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 30,
+    "pregunta": "¿En qué año se celebraron los primeros Juegos Olímpicos modernos?",
+    "opciones": ["1892", "1894", "1896", "1898"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 31,
+    "pregunta": "¿Cuál es el animal nacional de Australia?",
+    "opciones": ["Koala", "Canguro", "Ornitorrinco", "Dingo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 32,
+    "pregunta": "¿Qué filósofo griego fue maestro de Alejandro Magno?",
+    "opciones": ["Platón", "Sócrates", "Aristóteles", "Tales de Mileto"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 33,
+    "pregunta": "¿Cuál es la velocidad del sonido en el aire a temperatura ambiente?",
+    "opciones": ["320 m/s", "343 m/s", "360 m/s", "380 m/s"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 34,
+    "pregunta": "¿En qué año se publicó la primera edición de 'El origen de las especies'?",
+    "opciones": ["1857", "1858", "1859", "1860"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 35,
+    "pregunta": "¿Cuál es la capital de Canadá?",
+    "opciones": ["Toronto", "Vancouver", "Montreal", "Ottawa"],
+    "respuestaCorrecta": 4,
+    "dificultad": "medio"
+  },
+  {
+    "id": 36,
+    "pregunta": "¿Qué tipo de animal es un ornitorrinco?",
+    "opciones": ["Reptil", "Mamífero", "Anfibio", "Ave"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 37,
+    "pregunta": "¿Cuál es el número atómico del carbono?",
+    "opciones": ["4", "6", "8", "12"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 38,
+    "pregunta": "¿En qué ciudad se encuentra el museo del Louvre?",
+    "opciones": ["Londres", "Roma", "París", "Madrid"],
+    "respuestaCorrecta": 3,
+    "dificultad": "facil"
+  },
+  {
+    "id": 39,
+    "pregunta": "¿Cuál es la unidad de medida de la resistencia eléctrica?",
+    "opciones": ["Voltio", "Amperio", "Ohmio", "Vatio"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 40,
+    "pregunta": "¿Qué escritor creó el personaje de Sherlock Holmes?",
+    "opciones": ["Edgar Allan Poe", "Agatha Christie", "Arthur Conan Doyle", "Raymond Chandler"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 41,
+    "pregunta": "¿Cuál es la montaña más alta de África?",
+    "opciones": ["Monte Kenia", "Kilimanjaro", "Monte Elgon", "Ras Dashan"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 42,
+    "pregunta": "¿En qué año se lanzó el primer iPhone?",
+    "opciones": ["2006", "2007", "2008", "2009"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 43,
+    "pregunta": "¿Cuál es el proceso por el cual las plantas producen su alimento?",
+    "opciones": ["Respiración", "Fotosíntesis", "Digestión", "Fermentación"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 44,
+    "pregunta": "¿Qué país tiene la mayor cantidad de husos horarios?",
+    "opciones": ["Estados Unidos", "Rusia", "China", "Francia"],
+    "respuestaCorrecta": 4,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 45,
+    "pregunta": "¿Cuál es el idioma oficial de Brasil?",
+    "opciones": ["Español", "Portugués", "Francés", "Inglés"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 46,
+    "pregunta": "¿En qué guerra se utilizó por primera vez el código Morse?",
+    "opciones": ["Guerra Civil Americana", "Primera Guerra Mundial", "Guerra de Crimea", "Guerra Franco-Prusiana"],
+    "respuestaCorrecta": 1,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 47,
+    "pregunta": "¿Cuál es la galaxia más cercana a la Vía Láctea?",
+    "opciones": ["Galaxia de Andrómeda", "Nube de Magallanes", "Galaxia del Triángulo", "Galaxia Elíptica"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 48,
+    "pregunta": "¿Qué científica ganó dos premios Nobel en diferentes disciplinas?",
+    "opciones": ["Rosalind Franklin", "Marie Curie", "Dorothy Hodgkin", "Lise Meitner"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 49,
+    "pregunta": "¿Cuál es la capital de Nueva Zelanda?",
+    "opciones": ["Auckland", "Wellington", "Christchurch", "Hamilton"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 50,
+    "pregunta": "¿En qué año se construyó el Muro de Berlín?",
+    "opciones": ["1959", "1960", "1961", "1962"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  }
+]

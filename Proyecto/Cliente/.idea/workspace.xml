@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ff680801-2caa-4cc1-aa57-5f2f8eac2e1b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cliente/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cliente/TriviaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cliente/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cliente/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cliente/trivia-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorPartidaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/JugadorPartidaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PartidaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PartidaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PreguntaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/DAO/PreguntaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/PartidaTrivia.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/PartidaTrivia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/ServidorTrivia.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/ServidorTrivia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/entidades/Pregunta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/java/com/liceolapaz/acc/entidades/Pregunta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Servidor/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Servidor/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2xYAuqXkl3Rrzu2CTJSmni62b9H" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/FP/Proyecto/Cliente"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.cliente" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.cliente.TriviaApplication" />
+      <module name="Cliente" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ff680801-2caa-4cc1-aa57-5f2f8eac2e1b" name="Changes" comment="" />
+      <created>1748104860613</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748104860613</updated>
+    </task>
+    <servers />
+  </component>
+</project>

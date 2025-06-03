@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Quién compuso 'La Novena Sinfonía'?",
+    "opciones": ["Mozart", "Beethoven", "Bach", "Chopin"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Cuántas cuerdas tiene una guitarra española tradicional?",
+    "opciones": ["4", "5", "6", "7"],
+    "respuestaCorrecta": 3,
+    "dificultad": "facil"
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Qué banda británica cantó 'Bohemian Rhapsody'?",
+    "opciones": ["The Beatles", "Queen", "Led Zeppelin", "The Rolling Stones"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Cuál es el nombre real de Taylor Swift?",
+    "opciones": ["Taylor Alison Swift", "Taylor Anne Swift", "Taylor Amanda Swift", "Taylor Ashley Swift"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Qué instrumento toca Yo-Yo Ma?",
+    "opciones": ["Violín", "Piano", "Violonchelo", "Flauta"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 6,
+    "pregunta": "¿En qué año lanzó Dua Lipa su álbum 'Future Nostalgia'?",
+    "opciones": ["2019", "2020", "2021", "2022"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 7,
+    "pregunta": "¿Qué cantante es conocido como 'El Rey del Pop'?",
+    "opciones": ["Elvis Presley", "Michael Jackson", "Prince", "David Bowie"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Cuál fue el primer álbum de Ariana Grande?",
+    "opciones": ["My Everything", "Yours Truly", "Dangerous Woman", "Sweetener"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Cuántas teclas blancas tiene un piano completo?",
+    "opciones": ["48", "52", "56", "60"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Qué canción de Billie Eilish ganó el Grammy a Canción del Año en 2020?",
+    "opciones": ["Ocean Eyes", "Bad Guy", "When the Party's Over", "Everything I Wanted"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 11,
+    "pregunta": "¿Quién compuso 'El Lago de los Cisnes'?",
+    "opciones": ["Stravinsky", "Tchaikovsky", "Prokofiev", "Rachmaninoff"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Cuál es el álbum más vendido de Taylor Swift?",
+    "opciones": ["1989", "Folklore", "Midnights", "Lover"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 13,
+    "pregunta": "¿De qué país es originaria Dua Lipa?",
+    "opciones": ["Albania", "Reino Unido", "Kosovo", "Macedonia"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Cuántas sinfonías compuso Mozart?",
+    "opciones": ["35", "39", "41", "45"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 15,
+    "pregunta": "¿Qué cantante lanzó el hit 'Watermelon Sugar'?",
+    "opciones": ["Shawn Mendes", "Harry Styles", "Charlie Puth", "The Weeknd"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 16,
+    "pregunta": "¿En qué serie de Nickelodeon comenzó la carrera de Ariana Grande?",
+    "opciones": ["iCarly", "Victorious", "Big Time Rush", "Drake & Josh"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 17,
+    "pregunta": "¿En qué ciudad nació el jazz?",
+    "opciones": ["Chicago", "Nueva Orleans", "Nueva York", "Memphis"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 18,
+    "pregunta": "¿Cuál fue el primer single número 1 de Olivia Rodrigo?",
+    "opciones": ["Good 4 U", "Drivers License", "Deja Vu", "Brutal"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 19,
+    "pregunta": "¿Cuál es la nota musical que vibra a 440 Hz?",
+    "opciones": ["Do", "La", "Mi", "Sol"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 20,
+    "pregunta": "¿Qué álbum de Lana Del Rey incluye la canción 'Video Games'?",
+    "opciones": ["Ultraviolence", "Born to Die", "Honeymoon", "Norman F*cking Rockwell!"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 21,
+    "pregunta": "¿Qué cantante interpretó 'Purple Rain'?",
+    "opciones": ["David Bowie", "Prince", "George Michael", "Freddie Mercury"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 22,
+    "pregunta": "¿Cuál es el nombre real de SZA?",
+    "opciones": ["Solána Imani Rowe", "Samantha Zara Anderson", "Sarah Zoe Adams", "Stephanie Zia Roberts"],
+    "respuestaCorrecta": 1,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 23,
+    "pregunta": "¿En qué año lanzó Beyoncé su álbum visual 'Lemonade'?",
+    "opciones": ["2015", "2016", "2017", "2018"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 24,
+    "pregunta": "¿Qué canción de The Weeknd fue número 1 durante más tiempo en 2020?",
+    "opciones": ["Save Your Tears", "Blinding Lights", "After Hours", "Heartless"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 25,
+    "pregunta": "¿Cuál es el nombre del álbum debut de Sabrina Carpenter?",
+    "opciones": ["Evolution", "Eyes Wide Open", "Singular", "emails i can't send"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 26,
+    "pregunta": "¿Qué instrumento tocaba principalmente Freddie Mercury además de cantar?",
+    "opciones": ["Guitarra", "Piano", "Batería", "Bajo"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 27,
+    "pregunta": "¿Cuál fue el primer álbum de Taylor Swift en ser completamente suyo tras recuperar sus masters?",
+    "opciones": ["Lover", "Folklore", "Evermore", "Fearless (Taylor's Version)"],
+    "respuestaCorrecta": 4,
+    "dificultad": "medio"
+  },
+  {
+    "id": 28,
+    "pregunta": "¿En qué año nació Britney Spears?",
+    "opciones": ["1980", "1981", "1982", "1983"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 29,
+    "pregunta": "¿Qué colaboración entre Dua Lipa y otro artista se convirtió en hit global en 2020?",
+    "opciones": ["One Kiss con Calvin Harris", "Cold Heart con Elton John", "Prisoner con Miley Cyrus", "Un Día con J Balvin"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 30,
+    "pregunta": "¿Cuántos Grammy Awards ha ganado Taylor Swift como Álbum del Año?",
+    "opciones": ["2", "3", "4", "5"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 31,
+    "pregunta": "¿Qué cantante latina lanzó el hit 'Bad Bunny'?",
+    "opciones": ["Rosalía", "Karol G", "Anitta", "Ninguna, Bad Bunny es un artista"],
+    "respuestaCorrecta": 4,
+    "dificultad": "facil"
+  },
+  {
+    "id": 32,
+    "pregunta": "¿Cuál es el verdadero nombre de Lady Gaga?",
+    "opciones": ["Stefani Joanne Angelina Germanotta", "Stephanie Joan Angela German", "Stefanie Jane Angela Germano", "Stephania Joanna Angel Germany"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 33,
+    "pregunta": "¿En qué año se lanzó 'Thank U, Next' de Ariana Grande?",
+    "opciones": ["2017", "2018", "2019", "2020"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 34,
+    "pregunta": "¿Qué álbum de Adele incluye la canción 'Rolling in the Deep'?",
+    "opciones": ["19", "21", "25", "30"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 35,
+    "pregunta": "¿Cuál es el single más exitoso de Doja Cat?",
+    "opciones": ["Say So", "Kiss Me More", "Woman", "Get Into It"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 36,
+    "pregunta": "¿En qué película apareció la canción 'A Star Is Born' interpretada por Lady Gaga?",
+    "opciones": ["A Star Is Born (2018)", "House of Gucci", "Joker", "Top Gun: Maverick"],
+    "respuestaCorrecta": 1,
+    "dificultad": "facil"
+  },
+  {
+    "id": 37,
+    "pregunta": "¿Cuál fue el primer nombre artístico de The Weeknd?",
+    "opciones": ["Abel Tesfaye", "The Weekend", "XO", "Siempre fue The Weeknd"],
+    "respuestaCorrecta": 4,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 38,
+    "pregunta": "¿Qué canción de Taylor Swift menciona a 'Romeo y Julieta'?",
+    "opciones": ["You Belong With Me", "Love Story", "Romeo", "Juliet"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 39,
+    "pregunta": "¿Cuál es el álbum más reciente de Billie Eilish hasta 2023?",
+    "opciones": ["When We All Fall Asleep, Where Do We Go?", "Happier Than Ever", "Hit Me Hard and Soft", "Guitar Songs"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 40,
+    "pregunta": "¿En qué año nació Rihanna?",
+    "opciones": ["1986", "1987", "1988", "1989"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 41,
+    "pregunta": "¿Cuál es el nombre real de Rosalía?",
+    "opciones": ["Rosa Lía Vila", "Rosalía Vila Tobella", "Rosa Alía Villanueva", "Rosario Lía Vega"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 42,
+    "pregunta": "¿Qué canción de Lizzo se convirtió en viral en TikTok?",
+    "opciones": ["Good as Hell", "Truth Hurts", "Juice", "About Damn Time"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 43,
+    "pregunta": "¿Cuántos álbumes de estudio ha lanzado Taylor Swift hasta 2024?",
+    "opciones": ["9", "10", "11", "12"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 44,
+    "pregunta": "¿En qué programa de televisión conoció Ariana Grande a su primer novio famoso?",
+    "opciones": ["Victorious", "Sam & Cat", "Saturday Night Live", "The Voice"],
+    "respuestaCorrecta": 1,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 45,
+    "pregunta": "¿Cuál es el verdadero nombre de Charli XCX?",
+    "opciones": ["Charlotte Emma Aitchison", "Charlotte Xavier Cross", "Charli Xcx Cross", "Charlotte Emma Cross"],
+    "respuestaCorrecta": 1,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 46,
+    "pregunta": "¿Qué canción de Dua Lipa sampled a 'White Town - Your Woman'?",
+    "opciones": ["Physical", "Love Again", "Don't Start Now", "Break My Heart"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 47,
+    "pregunta": "¿En qué año lanzó Lorde su álbum debut 'Pure Heroine'?",
+    "opciones": ["2012", "2013", "2014", "2015"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 48,
+    "pregunta": "¿Cuál fue el primer sencillo de Camila Cabello como solista?",
+    "opciones": ["Havana", "Crying in the Club", "Never Be the Same", "Señorita"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 49,
+    "pregunta": "¿Qué álbum de Katy Perry incluye 'Roar' y 'Dark Horse'?",
+    "opciones": ["Teenage Dream", "Prism", "Witness", "Smile"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 50,
+    "pregunta": "¿Cuál es el nombre del álbum conceptual de Taylor Swift sobre el folklore?",
+    "opciones": ["Evermore", "Folklore", "Midnights", "The Tortured Poets Department"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  }
+]

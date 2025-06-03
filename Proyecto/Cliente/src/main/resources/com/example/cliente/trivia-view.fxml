@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #2E3440;" stylesheets="@../../../css/trivia-styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cliente.TriviaController">
+  <VBox fx:id="contenedorPrincipal" maxHeight="550.0" maxWidth="700.0" prefHeight="500.0" prefWidth="700.0" style="-fx-background-radius: 20; -fx-background-color: #ECEFF4;">
+    <children>
+
+      <!-- Pantalla 1: Introducción del nombre -->
+      <VBox fx:id="pantallaNombre" alignment="CENTER" prefHeight="500.0" prefWidth="700.0" spacing="25">
+        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../../../images/trivia-logo.png" />
+          </image>
+          <VBox.margin>
+            <Insets top="40.0" />
+          </VBox.margin>
+        </ImageView>
+        <Label fx:id="estadoLabel" prefHeight="40.0" prefWidth="300.0" text="Introduce tu nombre:" textFill="#2E3440">
+          <font>
+            <Font name="System Bold" size="26.0" />
+          </font>
+        </Label>
+        <TextField fx:id="nombreField" focusTraversable="false" maxWidth="250.0" minHeight="50.0" promptText="Tu nombre..." styleClass="input-textfield" />
+        <Button fx:id="botonEnviarNombre" minHeight="45.0" onAction="#onEnviarNombre" prefWidth="180.0" styleClass="primary-button" text="Entrar al Juego">
+          <font>
+            <Font size="16.0" />
+          </font>
+        </Button>
+        <Button minHeight="40.0" onAction="#onSalir" prefWidth="140.0" styleClass="secondary-button" text="Salir">
+          <font>
+            <Font size="14.0" />
+          </font>
+          <VBox.margin>
+            <Insets top="20.0" />
+          </VBox.margin>
+        </Button>
+      </VBox>
+
+      <!-- Pantalla 2: Selección de categoría y modo -->
+      <VBox fx:id="pantallaCategorias" alignment="CENTER" prefHeight="500.0" prefWidth="700.0" spacing="25">
+        <Label fx:id="categoriaLabel" text="Selecciona categoría y modo de juego:" textFill="#2E3440">
+          <font>
+            <Font name="System Bold" size="22.0" />
+          </font>
+          <VBox.margin>
+            <Insets top="30.0" />
+          </VBox.margin>
+        </Label>
+
+        <VBox alignment="CENTER" spacing="20">
+          <Label text="Categoría:" textFill="#2E3440">
+            <font>
+              <Font name="System Bold" size="16.0" />
+            </font>
+          </Label>
+          <ComboBox fx:id="comboCategorias" minHeight="40.0" prefWidth="200.0" styleClass="combo-box" />
+
+          <Label text="Modo de Juego:" textFill="#2E3440">
+            <font>
+              <Font name="System Bold" size="16.0" />
+            </font>
+            <VBox.margin>
+              <Insets top="10.0" />
+            </VBox.margin>
+          </Label>
+          <ComboBox fx:id="comboModo" minHeight="40.0" prefWidth="200.0" styleClass="combo-box" />
+        </VBox>
+
+        <Button fx:id="botonIniciarJuego" minHeight="45.0" onAction="#onIniciarJuego" prefWidth="180.0" styleClass="primary-button" text="Iniciar Juego">
+          <font>
+            <Font size="16.0" />
+          </font>
+        </Button>
+
+        <HBox alignment="CENTER" spacing="15">
+          <Button fx:id="botonEstadisticas" minHeight="35.0" onAction="#onMostrarEstadisticas" prefWidth="140.0" styleClass="info-button" text="Estadísticas">
+            <font>
+              <Font size="13.0" />
+            </font>
+          </Button>
+          <Button fx:id="botonPuntuacion" minHeight="35.0" onAction="#onMostrarPuntuacion" prefWidth="140.0" styleClass="info-button" text="Mi Puntuación">
+            <font>
+              <Font size="13.0" />
+            </font>
+          </Button>
+        </HBox>
+
+        <Label fx:id="puntuacionTotal" managed="false" textFill="#5E81AC" visible="false">
+          <font>
+            <Font size="16.0" />
+          </font>
+        </Label>
+      </VBox>
+
+      <!-- Pantalla 3: Juego -->
+      <VBox fx:id="pantallaJuego" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="700.0" spacing="15">
+
+        <!-- Header del juego -->
+        <VBox alignment="CENTER" spacing="10">
+          <VBox.margin>
+            <Insets top="20.0" />
+          </VBox.margin>
+
+          <HBox alignment="CENTER" spacing="30">
+            <Label fx:id="numeroPreguntaLabel" managed="false" text="Pregunta 1 de 10" textFill="#2E3440" visible="false">
+              <font>
+                <Font name="System Bold" size="18.0" />
+              </font>
+            </Label>
+            <Label fx:id="contadorLabel" managed="false" text="20" textFill="#BF616A" visible="false">
+              <font>
+                <Font name="System Bold" size="24.0" />
+              </font>
+            </Label>
+          </HBox>
+
+          <Label fx:id="oponenteLabel" managed="false" textFill="#5E81AC" visible="false">
+            <font>
+              <Font name="System Bold" size="16.0" />
+            </font>
+          </Label>
+
+          <Label fx:id="puntosLabel" managed="false" textFill="#5E81AC" visible="false">
+            <font>
+              <Font size="14.0" />
+            </font>
+          </Label>
+        </VBox>
+
+        <!-- Pregunta -->
+        <VBox alignment="CENTER" spacing="20">
+          <Label fx:id="preguntaLabel" alignment="CENTER" managed="false" prefWidth="600.0" text="¿Cuál es la capital de Francia?" textAlignment="CENTER" textFill="#2E3440" visible="false" wrapText="true">
+            <font>
+              <Font name="System Bold" size="20.0" />
+            </font>
+            <VBox.margin>
+              <Insets bottom="10.0" left="30.0" right="30.0" />
+            </VBox.margin>
+          </Label>
+
+          <!-- Opciones de respuesta -->
+          <VBox alignment="CENTER" spacing="12">
+            <RadioButton fx:id="opcionA" managed="false" mnemonicParsing="false" styleClass="option-radio" text="A) París" visible="false">
+              <font>
+                <Font size="16.0" />
+              </font>
+            </RadioButton>
+            <RadioButton fx:id="opcionB" managed="false" mnemonicParsing="false" styleClass="option-radio" text="B) Londres" visible="false">
+              <font>
+                <Font size="16.0" />
+              </font>
+            </RadioButton>
+            <RadioButton fx:id="opcionC" managed="false" mnemonicParsing="false" styleClass="option-radio" text="C) Madrid" visible="false">
+              <font>
+                <Font size="16.0" />
+              </font>
+            </RadioButton>
+            <RadioButton fx:id="opcionD" managed="false" mnemonicParsing="false" styleClass="option-radio" text="D) Roma" visible="false">
+              <font>
+                <Font size="16.0" />
+              </font>
+            </RadioButton>
+          </VBox>
+
+          <!-- Botón responder y feedback -->
+          <VBox alignment="CENTER" spacing="15">
+            <Button fx:id="botonResponder" managed="false" minHeight="40.0" onAction="#onResponder" prefWidth="150.0" styleClass="primary-button" text="Responder" visible="false">
+              <font>
+                <Font size="14.0" />
+              </font>
+            </Button>
+
+            <Label fx:id="feedbackLabel" managed="false" textFill="#A3BE8C" visible="false">
+              <font>
+                <Font name="System Bold" size="16.0" />
+              </font>
+            </Label>
+          </VBox>
+        </VBox>
+
+        <!-- Botón cancelar -->
+        <HBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+          <Button fx:id="botonCancelarJuego" managed="false" minHeight="35.0" onAction="#onCancelarJuego" prefWidth="100.0" styleClass="cancel-button" text="Cancelar" visible="false">
+            <font>
+              <Font size="12.0" />
+            </font>
+            <HBox.margin>
+              <Insets left="30.0" />
+            </HBox.margin>
+          </Button>
+        </HBox>
+      </VBox>
+
+      <!-- Pantalla 4: Resultados/Saliendo -->
+      <VBox fx:id="pantallaResultados" alignment="CENTER" prefHeight="500.0" prefWidth="700.0" spacing="25">
+        <VBox.margin>
+          <Insets top="50.0" />
+        </VBox.margin>
+
+        <Label fx:id="resultadoLabel" managed="false" textFill="#2E3440" visible="false">
+          <font>
+            <Font name="System Bold" size="28.0" />
+          </font>
+        </Label>
+
+        <Label fx:id="mensajeResultado" alignment="CENTER" managed="false" prefWidth="500.0" textAlignment="CENTER" textFill="#4C566A" visible="false" wrapText="true">
+          <font>
+            <Font size="16.0" />
+          </font>
+        </Label>
+
+        <ProgressIndicator fx:id="ruedaCarga" managed="false" prefHeight="40.0" prefWidth="40.0" style="-fx-progress-color: #5E81AC;" visible="false">
+          <VBox.margin>
+            <Insets top="20.0" />
+          </VBox.margin>
+        </ProgressIndicator>
+      </VBox>
+
+    </children>
+  </VBox>
+</StackPane>

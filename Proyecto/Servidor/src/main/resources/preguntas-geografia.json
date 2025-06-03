@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Cuál es el río más largo del mundo?",
+    "opciones": ["Amazonas", "Nilo", "Yangtsé", "Mississippi"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Cuál es la montaña más alta del mundo?",
+    "opciones": ["K2", "Everest", "Kangchenjunga", "Lhotse"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Cuál es el país más joven del mundo (independizado más recientemente)?",
+    "opciones": ["Kosovo", "Sudán del Sur", "Montenegro", "Timor Oriental"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Cuál es la capital de Australia?",
+    "opciones": ["Sydney", "Melbourne", "Canberra", "Perth"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Qué país tiene más islas en el mundo?",
+    "opciones": ["Noruega", "Finlandia", "Suecia", "Canadá"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Cuál es el país más grande del mundo por superficie?",
+    "opciones": ["Canadá", "Rusia", "Estados Unidos", "China"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 7,
+    "pregunta": "¿Cuál es la capital de Kazajistán?",
+    "opciones": ["Almaty", "Nur-Sultán", "Shymkent", "Astana"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Qué país tiene la mayor densidad de población del mundo?",
+    "opciones": ["Singapur", "Mónaco", "Hong Kong", "Malta"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 9,
+    "pregunta": "¿En qué país se encuentra la región de la Patagonia?",
+    "opciones": ["Chile", "Argentina", "Ambos países", "Uruguay"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Cuál es el lago más profundo del mundo?",
+    "opciones": ["Lago Superior", "Lago Baikal", "Lago Tanganica", "Lago Victoria"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 11,
+    "pregunta": "¿Cuál es la ciudad más poblada del mundo?",
+    "opciones": ["Tokio", "Delhi", "Shanghai", "São Paulo"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Cuál es la capital de Tailandia?",
+    "opciones": ["Bangkok", "Phuket", "Chiang Mai", "Pattaya"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 13,
+    "pregunta": "¿Qué país tiene más husos horarios?",
+    "opciones": ["Estados Unidos", "Rusia", "China", "Francia"],
+    "respuestaCorrecta": 4,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Cuál es el desierto más grande del mundo?",
+    "opciones": ["Sahara", "Antártida", "Gobi", "Kalahari"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 15,
+    "pregunta": "¿En qué continente se encuentra Turquía principalmente?",
+    "opciones": ["Europa", "Asia", "Ambos", "África"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 16,
+    "pregunta": "¿Cuál es la capital administrativa de Sudáfrica?",
+    "opciones": ["Johannesburgo", "Ciudad del Cabo", "Pretoria", "Bloemfontein"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 17,
+    "pregunta": "¿Qué país es el mayor productor de café del mundo?",
+    "opciones": ["Colombia", "Brasil", "Vietnam", "Etiopía"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 18,
+    "pregunta": "¿Cuál es el país más poblado del mundo actualmente?",
+    "opciones": ["India", "China", "Estados Unidos", "Indonesia"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 19,
+    "pregunta": "¿Cuál es la capital de Myanmar (Birmania)?",
+    "opciones": ["Yangón", "Naipyidó", "Mandalay", "Bagan"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 20,
+    "pregunta": "¿Cuál es la cascada más alta del mundo?",
+    "opciones": ["Cataratas del Niágara", "Salto Ángel", "Cataratas Victoria", "Cataratas del Iguazú"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 21,
+    "pregunta": "¿Qué isla es la más grande del mundo?",
+    "opciones": ["Nueva Guinea", "Borneo", "Groenlandia", "Madagascar"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 22,
+    "pregunta": "¿En qué país se encuentra el punto más bajo de la Tierra?",
+    "opciones": ["Israel", "Jordania", "Ambos países", "Palestina"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 23,
+    "pregunta": "¿Cuál es la capital de Sri Lanka?",
+    "opciones": ["Colombo", "Sri Jayawardenepura Kotte", "Kandy", "Galle"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 24,
+    "pregunta": "¿Qué país tiene la costa más larga del mundo?",
+    "opciones": ["Rusia", "Canadá", "Australia", "Noruega"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 25,
+    "pregunta": "¿En qué hemisferio se encuentra Australia?",
+    "opciones": ["Norte", "Sur", "Este", "Oeste"],
+    "respuestaCorrecta": 2,
+    "dificultad": "facil"
+  },
+  {
+    "id": 26,
+    "pregunta": "¿Cuál es el país sin costa marítima más grande del mundo?",
+    "opciones": ["Mongolia", "Chad", "Kazajistán", "Afganistán"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 27,
+    "pregunta": "¿En qué continente se encuentra el 60% del agua dulce del mundo?",
+    "opciones": ["Asia", "América del Sur", "Antártida", "África"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 28,
+    "pregunta": "¿Cuál es la capital de Costa de Marfil?",
+    "opciones": ["Abiyán", "Yamusukro", "Bouaké", "San Pedro"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 29,
+    "pregunta": "¿Qué cordillera separa Europa de Asia?",
+    "opciones": ["Montes Urales", "Cáucaso", "Himalayas", "Altái"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 30,
+    "pregunta": "¿Cuál es el volcán activo más alto del mundo?",
+    "opciones": ["Monte Etna", "Ojos del Salado", "Monte Fuji", "Cotopaxi"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 31,
+    "pregunta": "¿En qué país se encuentra la ciudad de Tombuctú?",
+    "opciones": ["Argelia", "Mali", "Níger", "Mauritania"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 32,
+    "pregunta": "¿Cuál es el único país que es tanto una ciudad como un país?",
+    "opciones": ["Mónaco", "Vaticano", "Singapur", "San Marino"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 33,
+    "pregunta": "¿Qué estrecho separa África de Europa?",
+    "opciones": ["Estrecho de Bering", "Estrecho de Gibraltar", "Estrecho de Magallanes", "Estrecho de Hormuz"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 34,
+    "pregunta": "¿Cuál es el país más pequeño de América del Sur?",
+    "opciones": ["Uruguay", "Suriname", "Guyana", "Guayana Francesa"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 35,
+    "pregunta": "¿En qué país se encuentra el lago Titicaca?",
+    "opciones": ["Perú", "Bolivia", "Ambos países", "Ecuador"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 36,
+    "pregunta": "¿Cuál es la capital de Bielorrusia?",
+    "opciones": ["Kiev", "Minsk", "Vilna", "Riga"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 37,
+    "pregunta": "¿Qué océano baña las costas occidentales de América?",
+    "opciones": ["Atlántico", "Índico", "Pacífico", "Ártico"],
+    "respuestaCorrecta": 3,
+    "dificultad": "facil"
+  },
+  {
+    "id": 38,
+    "pregunta": "¿Cuál es el país con más países vecinos?",
+    "opciones": ["Rusia", "China", "Brasil", "Alemania"],
+    "respuestaCorrecta": 2,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 39,
+    "pregunta": "¿En qué país se encuentra el delta del Nilo?",
+    "opciones": ["Sudán", "Egipto", "Etiopía", "Uganda"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 40,
+    "pregunta": "¿Cuál es la montaña más alta de América?",
+    "opciones": ["Monte McKinley", "Aconcagua", "Chimborazo", "Monte Whitney"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 41,
+    "pregunta": "¿Qué país europeo tiene más habitantes?",
+    "opciones": ["Alemania", "Francia", "Reino Unido", "Rusia"],
+    "respuestaCorrecta": 4,
+    "dificultad": "medio"
+  },
+  {
+    "id": 42,
+    "pregunta": "¿En qué mar se encuentra la isla de Chipre?",
+    "opciones": ["Mar Egeo", "Mar Mediterráneo", "Mar Negro", "Mar Jónico"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 43,
+    "pregunta": "¿Cuál es la capital de Senegal?",
+    "opciones": ["Bamako", "Dakar", "Conakry", "Nuakchot"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 44,
+    "pregunta": "¿Qué país tiene la forma más alargada del mundo?",
+    "opciones": ["Chile", "Italia", "Noruega", "Japón"],
+    "respuestaCorrecta": 1,
+    "dificultad": "medio"
+  },
+  {
+    "id": 45,
+    "pregunta": "¿En qué continente se encuentra el desierto de Atacama?",
+    "opciones": ["África", "Asia", "América del Sur", "Australia"],
+    "respuestaCorrecta": 3,
+    "dificultad": "medio"
+  },
+  {
+    "id": 46,
+    "pregunta": "¿Cuál es el río más caudaloso del mundo?",
+    "opciones": ["Nilo", "Amazonas", "Congo", "Yangtsé"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 47,
+    "pregunta": "¿Qué país tiene más Patrimonio de la Humanidad de la UNESCO?",
+    "opciones": ["Francia", "España", "Italia", "China"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  },
+  {
+    "id": 48,
+    "pregunta": "¿En qué cordillera se encuentra el Everest?",
+    "opciones": ["Karakóram", "Himalaya", "Hindu Kush", "Pamir"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 49,
+    "pregunta": "¿Cuál es el país más visitado del mundo por turistas?",
+    "opciones": ["España", "Francia", "Estados Unidos", "Italia"],
+    "respuestaCorrecta": 2,
+    "dificultad": "medio"
+  },
+  {
+    "id": 50,
+    "pregunta": "¿Qué país controla el Paso del Noroeste en el Ártico?",
+    "opciones": ["Rusia", "Estados Unidos", "Canadá", "Dinamarca"],
+    "respuestaCorrecta": 3,
+    "dificultad": "dificil"
+  }
+]
